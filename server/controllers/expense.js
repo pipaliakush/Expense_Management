@@ -1,3 +1,7 @@
-export const getExpenses = (req, res, next) => {
-  res.render('index', { title: 'Expense' });
+const getExpenses = (req, res, next) => {
+  res.status(200).send({ name: "expense" });
+};
+
+module.exports = {
+  getExpenses,
 };

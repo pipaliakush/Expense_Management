@@ -1,3 +1,7 @@
-export const getIncomes = (req, res, next) => {
-  res.render('index', { title: 'Income' });
+const getIncomes = (req, res, next) => {
+  res.status(200).send({ name: "income" });
+};
+
+module.exports = {
+  getIncomes,
 };
