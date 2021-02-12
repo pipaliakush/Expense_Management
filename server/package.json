@@ -2,7 +2,9 @@
   "name": "expense-manager-backend",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
+  "scripts": {    
+    "lint": "npx eslint \"**/*.js\"",
+    "lint:fix": "npm run lint -- --fix",
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
