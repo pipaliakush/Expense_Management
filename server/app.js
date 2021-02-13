@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const cors = require("cors");
 require("./middlewares/passport-config");
 
 const app = express();
@@ -26,6 +27,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
+
+// set cross origin headers
+app.use(cors());
 
 app.use(logger("dev"));
 app.use(express.json());
