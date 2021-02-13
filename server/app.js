@@ -39,6 +39,7 @@ app.use("/api/v1", require("./routes/expense"));
 app.use("/api/v1", require("./routes/income"));
 app.use("/api/v1", require("./routes/authenticate"));
 app.use("/api/v1/source", require("./routes/source"));
+app.use("/api/v1/category", require("./routes/category"));
 
 // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
