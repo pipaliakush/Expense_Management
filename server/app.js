@@ -5,9 +5,17 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const logger = require("morgan");
+const mongoose = require("mongoose");
 require("./middlewares/passport-config");
 
 const app = express();
+
+mongoose.connect(process.env.MONGODB_CONNECTION_PATH, {
+  useNewUrlParser: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+  useUnifiedTopology: true,
+});
 
 // Initializes passport and passport sessions
 app.use(passport.initialize());
