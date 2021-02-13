@@ -8,6 +8,8 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 require("./middlewares/passport-config");
 
+require("./startUp/customJoiValidators");
+
 const app = express();
 
 mongoose.connect(process.env.MONGODB_CONNECTION_PATH, {
@@ -36,6 +38,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/v1", require("./routes/expense"));
 app.use("/api/v1", require("./routes/income"));
 app.use("/api/v1", require("./routes/authenticate"));
+app.use("/api/v1/source", require("./routes/source"));
 
 // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
