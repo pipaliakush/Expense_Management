@@ -12,10 +12,47 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          <!-- Quasar App -->
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <!-- Account Settings -->
+        <div>
+          <div class="q-pa-md">
+            <q-btn round>
+              <q-avatar size="42px">
+                <img src="https://cdn.quasar.dev/img/avatar4.jpg" />
+              </q-avatar>
+              <q-menu>
+                <div class="row no-wrap q-pa-md">
+                  <div class="column">
+                    <div class="text-h6 q-mb-md">Settings</div>
+                    <q-toggle v-model="mobileData" label="Use Mobile Data" />
+                    <q-toggle v-model="bluetooth" label="Bluetooth" />
+                  </div>
+
+                  <q-separator vertical inset class="q-mx-lg" />
+
+                  <div class="column items-center">
+                    <q-avatar size="72px">
+                      <img src="https://cdn.quasar.dev/img/avatar4.jpg" />
+                    </q-avatar>
+
+                    <div class="text-subtitle1 q-mt-md q-mb-xs">John Doe</div>
+
+                    <q-btn
+                      color="primary"
+                      label="Logout"
+                      push
+                      size="sm"
+                      v-close-popup
+                    />
+                  </div>
+                </div>
+              </q-menu>
+            </q-btn>
+          </div>
+        </div>
+        <!-- Account Settings -->
       </q-toolbar>
     </q-header>
 
@@ -26,10 +63,7 @@
       content-class="bg-grey-1"
     >
       <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
+        <q-item-label header class="text-grey-8">
           Essential Links
         </q-item-label>
         <EssentialLink
@@ -47,61 +81,19 @@
 </template>
 
 <script>
-import EssentialLink from 'components/EssentialLink.vue'
-
-const linksData = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
+import EssentialLink from "components/EssentialLink.vue";
+import LinksData from "src/layouts/sidebarRoutes.json";
 
 export default {
-  name: 'MainLayout',
+  name: "MainLayout",
   components: { EssentialLink },
-  data () {
+  data() {
     return {
+      mobileData: false,
+      bluetooth: true,
       leftDrawerOpen: false,
-      essentialLinks: linksData
-    }
+      essentialLinks: LinksData.routes
+    };
   }
-}
+};
 </script>
