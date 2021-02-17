@@ -1,12 +1,10 @@
 <template>
-  <div>
-    hello dashboard
-  </div>
+  <div>hello dashboard</div>
 </template>
 
 <script>
 export default {
   watchQuery: true,
-  middleware: "authenticated"
+  middleware: "authenticated",
 };
 </script>

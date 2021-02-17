@@ -15,16 +15,24 @@ export default {
   },
   head() {
     return {
-      title: "Login - Expense Management"
+      title: "Login - Expense Management",
     };
+  },
+  mounted() {
+    this.$store.dispatch("login");
+    //   .then(() => {})
+    //   .catch(() => {});
   },
   methods: {
     loginWithGoogle() {
-      this.$store
-        .dispatch("login")
-        .then(() => {})
-        .catch(() => {});
-    }
-  }
+      // window.open("http://localhost:3001/api/v1/auth/google", _self);
+      // window.location.href = "http://localhost:3001/api/v1/auth/google";
+      window.location.replace("http://localhost:3001/api/v1/auth/google");
+      // this.$store
+      //   .dispatch("login")
+      //   .then(() => {})
+      //   .catch(() => {});
+    },
+  },
 };
 </script>

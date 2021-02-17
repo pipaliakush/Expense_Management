@@ -5,9 +5,9 @@ const prefix = "/api/v1";
 
 export default {
   login({ commit }) {
-    const url = `${prefix}/auth/google`;
+    const url = `${prefix}/auth/login`;
     return request(axios, "get", url).then(response => {
-      console.log(response);
+      console.log(response, "=========");
       // commit("userData", response);
     });
   }
