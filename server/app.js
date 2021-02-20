@@ -26,6 +26,9 @@ app.use(
     name: "auth",
     keys: ["expensemanager"],
     maxAge: 24 * 60 * 60 * 100,
+    httpOnly: false,
+    // path: "/api",
+    // secure: true
   })
 );
 
