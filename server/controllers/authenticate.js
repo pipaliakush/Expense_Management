@@ -1,7 +1,8 @@
 const login = async (req, res, next) => {
   try {
     res.status(200).send({
-      displayName: req.user.name,
+      id: req.user.id,
+      name: req.user.name,
       email: req.user.email,
       avatar: req.user.avatar,
     });

@@ -1,5 +1,5 @@
 <template>
-  <div>hello dashboard</div>
+  <div>Hello {{$store.state.user.name}}</div>
 </template>
 
 <script>

@@ -10,6 +10,8 @@ const cors = require("cors");
 const cookieSession = require("cookie-session");
 require("./middlewares/passport-config");
 
+require("./startUp/customJoiValidators");
+
 const app = express();
 
 mongoose.connect(process.env.MONGODB_CONNECTION_PATH, {
@@ -24,6 +26,9 @@ app.use(
     name: "auth",
     keys: ["expensemanager"],
     maxAge: 24 * 60 * 60 * 100,
+    httpOnly: false,
+    // path: "/api",
+    // secure: true
   })
 );
 
@@ -38,7 +43,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // set cross origin headers
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 app.use(logger("dev"));
 app.use(express.json());
@@ -49,6 +59,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/v1", require("./routes/expense"));
 app.use("/api/v1", require("./routes/income"));
 app.use("/api/v1", require("./routes/authenticate"));
+app.use("/api/v1/source", require("./routes/source"));
+app.use("/api/v1/category", require("./routes/category"));
 
 // catch 404 and forward to error handler
 // app.use(function (req, res, next) {

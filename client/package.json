@@ -12,7 +12,9 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.8.3",
-    "nuxt": "^2.14.12"
+    "jwt-decode": "^3.1.2",
+    "nuxt": "^2.14.12",
+    "vue-cookies": "^1.7.4"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.11.3",

@@ -8,7 +8,7 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(async function (user, done) {
   const existedUser = await User.findOne({ email: user.email });
-  console.log("existedUser", existedUser);
+
   if (existedUser) {
     done(null, user);
   } else {
@@ -40,6 +40,7 @@ passport.use(
           const newUser = await user.save();
           if (newUser) {
             const userData = {
+              id: newUser.id,
               name: profile._json.name,
               email: profile._json.email,
               avatar: profile._json.picture,
@@ -48,6 +49,7 @@ passport.use(
           }
         } else {
           const userData = {
+            id: user.id,
             name: profile._json.name,
             email: profile._json.email,
             avatar: profile._json.picture,

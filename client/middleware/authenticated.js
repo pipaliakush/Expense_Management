@@ -1,19 +1,21 @@
-import state from "@/store/state.js";
+import Vue from 'vue';
+import jwt_decode from "jwt-decode";
 
-export default function({ store, redirect, route, env }) {
-  let r_url;
+export default function({ redirect, store }) {
 
-  if (process.server) {
-    r_url = route.fullPath;
-  } else if (process.client) {
-    r_url = window.location.href
-      .replace(window.location.origin, "")
-      .replace(env.base, "");
-  }
+  const authDetails = Vue.$cookies.get('auth');
 
   // If the user is not authenticated
+  if (!authDetails) {
+    return redirect("/login");
+  }
+
   if (!store.state.user) {
-    store.commit("resetState", state);
-    return redirect("/login", { r_url });
+    try {
+      const tokenData = jwt_decode(authDetails, { header: true });
+      store.commit('setUser', tokenData.passport.user);
+    } catch (error) {
+      return redirect("/login");
+    }
   }
 }
