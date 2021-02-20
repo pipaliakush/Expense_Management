@@ -2,8 +2,11 @@ const Category = require("../models/category");
 const validateObjectId = require("./validators/objectId.validator");
 const validateCategory = require("./validators/category.validator");
 
-const getCategories = (req, res) => {
-  res.status(200).send({ name: "category" });
+const getCategories = async (req, res) => {
+  const categories = await Category.find({
+    $or: [{ userId: req.user.id }, { isDefault: true, userId: null }],
+  });
+  res.send(categories);
 };
 
 const getCategoryById = async (req, res) => {
@@ -30,7 +33,7 @@ const createCategory = async (req, res) => {
   const category = await Category.create({
     name: categoryData.name,
     icon: categoryData.icon,
-    userId: categoryData.userId || req.user.id,
+    userId: req.user.id,
   });
 
   return res.send(category);

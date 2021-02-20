@@ -2,8 +2,11 @@ const Source = require("../models/source");
 const validateObjectId = require("./validators/objectId.validator");
 const validateSource = require("./validators/source.validator");
 
-const getSources = (req, res) => {
-  res.status(200).send({ name: "source" });
+const getSources = async (req, res) => {
+  const sources = await Source.find({
+    $or: [{ userId: req.user.id }, { isDefault: true, userId: null }],
+  });
+  res.send(sources);
 };
 
 const getSourceById = async (req, res) => {
@@ -30,7 +33,7 @@ const createSource = async (req, res) => {
   const source = await Source.create({
     name: sourceData.name,
     type: sourceData.type,
-    userId: sourceData.userId || req.user.id,
+    userId: req.user.id,
   });
 
   return res.send(source);
