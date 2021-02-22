@@ -4,11 +4,11 @@ import axios from "axios";
 const prefix = "/api/v1";
 
 export default {
-  login({ commit }) {
-    const url = `${prefix}/auth/login`;
+  getCategories({ commit }) {
+    const url = `${prefix}/category`;
+    console.log("-=-=-=-=-=-=");
     return request(axios, "get", url).then(response => {
-      console.log(response, "=========");
-      // commit("userData", response);
+      commit("categories", response.data);
     });
   }
 };
