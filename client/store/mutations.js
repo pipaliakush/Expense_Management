@@ -8,6 +8,9 @@ export default {
   categories(state, result) {
     state.categoriesList = result;
   },
+  sources(state, result) {
+    state.sourcesList = result;
+  },
   isLoading(state, value) {
     state.isLoading = value;
   }
