@@ -9,13 +9,19 @@ export function request(axios, type, url, data) {
       });
       break;
     case "post":
-      request = axios.post(url, data);
+      request = axios.post(newUrl, data, {
+        withCredentials: true
+      });
       break;
     case "put":
-      request = axios.put(url, data);
+      request = axios.put(newUrl, data, {
+        withCredentials: true
+      });
       break;
     case "delete":
-      request = axios.delete(url);
+      request = axios.delete(newUrl, {
+        withCredentials: true
+      });
       break;
   }
   return request;
