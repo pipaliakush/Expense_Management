@@ -12,6 +12,9 @@
           <th class="text-left">
             Default
           </th>
+          <th class="text-left">
+            Actions
+          </th>
         </tr>
       </thead>
       <tbody v-if="categoriesList.length">
@@ -19,6 +22,14 @@
           <td>{{ item.name }}</td>
           <td><i :class="item.icon" class="fa-2x" aria-hidden="true"></i></td>
           <td><span v-if="item.isDefault">Yes</span><span v-else>No</span></td>
+          <td class="d-flex text-center align-center">
+            <Edit :formData="item" />
+            <div class="ml-2">
+              <v-btn x-small color="error" dark @click="deleteCategory(item._id)">
+                Delete
+              </v-btn>
+            </div>
+          </td>
         </tr>
       </tbody>
       <div class="m-5 text-center" v-else>
@@ -29,13 +40,37 @@
 </template>
 
 <script>
+import Edit from "@/components/Categories/Edit/index.vue";
+
 export default {
+  components: {
+    Edit
+  },
   data() {
     return {};
   },
   computed: {
     categoriesList() {
       return this.$store.state.categoriesList;
+    }
+  },
+  methods: {
+    deleteCategory(id) {
+      this.$store
+        .dispatch("deleteCategory", id)
+        .then(() => {
+          this.$toasted.success("Category deleted successfully", {
+            theme: "bubble",
+            position: "top-right",
+            duration: 3000
+          });
+
+          this.$store
+            .dispatch("getCategories", this.$route.query)
+            .then(() => {})
+            .catch(() => {});
+        })
+        .catch(() => {});
     }
   }
 };
