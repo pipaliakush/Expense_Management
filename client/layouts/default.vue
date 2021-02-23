@@ -99,6 +99,8 @@
 </template>
 
 <script>
+import "@/assets/css/adminify.js";
+
 export default {
   data() {
     return {

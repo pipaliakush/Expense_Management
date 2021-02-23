@@ -25,6 +25,7 @@
             <v-row>
               <v-col cols="12" sm="6">
                 <v-text-field
+                  class="mt-3"
                   label="Category Name*"
                   v-model="form.name"
                   :rules="rules"
@@ -32,11 +33,14 @@
                 ></v-text-field>
               </v-col>
               <v-col cols="12" sm="6">
-                <v-select
-                  :items="['0-17', '18-29', '30-54', '54+']"
-                  label="Choose Icon*"
-                  required
-                ></v-select>
+                <div>
+                  <label for="icon">Choose Icon*</label>
+                  <e-icon-picker
+                    placeholder="Search"
+                    v-model="form.icon"
+                    required
+                  />
+                </div>
               </v-col>
             </v-row>
           </v-container>
@@ -45,10 +49,10 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="close">
-            Close
+            Cancel
           </v-btn>
           <v-btn color="blue darken-1" text @click="save">
-            Save
+            Add Category
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -58,6 +62,7 @@
 
 <script>
 export default {
+  components: {},
   data() {
     return {
       dialog: false,
@@ -66,7 +71,8 @@ export default {
         value => (value && value.length >= 3) || "Min 3 characters"
       ],
       form: {
-        name: ""
+        name: "",
+        icon: null
       }
     };
   },
@@ -74,9 +80,25 @@ export default {
     close() {
       this.dialog = false;
       this.form.name = "";
+      this.form.icon = null;
     },
     save() {
-      this.dialog = false;
+      this.$store
+        .dispatch("addCategory", this.form)
+        .then(() => {
+          this.$toasted.success("Category created successfully", {
+            theme: "bubble",
+            position: "top-right",
+            duration: 3000
+          });
+          this.close();
+
+          this.$store
+            .dispatch("getCategories", this.$route.query)
+            .then(() => {})
+            .catch(() => {});
+        })
+        .catch(() => {});
     }
   }
 };
