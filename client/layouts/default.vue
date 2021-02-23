@@ -117,6 +117,11 @@ export default {
           icon: "mdi-chart-bubble",
           title: "Categories",
           to: "/categories"
+        },
+        {
+          icon: "mdi-currency-usd",
+          title: "Sources",
+          to: "/sources"
         }
       ],
       miniVariant: false,

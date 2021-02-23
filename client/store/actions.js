@@ -21,5 +21,23 @@ export default {
   deleteCategory({ dispatch }, id) {
     const url = `${prefix}/category/${id}`;
     return request(axios, "delete", url).then(response => {});
+  },
+  getSources({ commit }) {
+    const url = `${prefix}/source`;
+    return request(axios, "get", url).then(response => {
+      commit("sources", response.data);
+    });
+  },
+  addSource({ dispatch }, postData) {
+    const url = `${prefix}/source`;
+    return request(axios, "post", url, postData).then(response => {});
+  },
+  updateSource({ dispatch }, { id, postData }) {
+    const url = `${prefix}/source/${id}`;
+    return request(axios, "put", url, postData).then(response => {});
+  },
+  deleteSource({ dispatch }, id) {
+    const url = `${prefix}/source/${id}`;
+    return request(axios, "delete", url).then(response => {});
   }
 };

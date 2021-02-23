@@ -7,30 +7,21 @@
             Name
           </th>
           <th class="text-left">
-            Icon
-          </th>
-          <th class="text-left">
-            Default
+            Type
           </th>
           <th class="text-left">
             Actions
           </th>
         </tr>
       </thead>
-      <tbody v-if="categoriesList.length">
-        <tr v-for="item in categoriesList" :key="item._id">
+      <tbody v-if="sourcesList.length">
+        <tr v-for="item in sourcesList" :key="item._id">
           <td>{{ item.name }}</td>
-          <td><i :class="item.icon" class="fa-2x" aria-hidden="true"></i></td>
-          <td><span v-if="item.isDefault">Yes</span><span v-else>No</span></td>
+          <td>{{ item.type }}</td>
           <td v-if="!item.isDefault" class="d-flex text-center align-center">
             <Edit :formData="item" />
             <div class="ml-2">
-              <v-btn
-                x-small
-                color="error"
-                dark
-                @click="deleteCategory(item._id)"
-              >
+              <v-btn x-small color="error" dark @click="deleteSource(item._id)">
                 Delete
               </v-btn>
             </div>
@@ -46,7 +37,7 @@
 </template>
 
 <script>
-import Edit from "@/components/Categories/Edit/index.vue";
+import Edit from "@/components/Sources/Edit/index.vue";
 
 export default {
   components: {
@@ -56,23 +47,23 @@ export default {
     return {};
   },
   computed: {
-    categoriesList() {
-      return this.$store.state.categoriesList;
+    sourcesList() {
+      return this.$store.state.sourcesList;
     }
   },
   methods: {
-    deleteCategory(id) {
+    deleteSource(id) {
       this.$store
-        .dispatch("deleteCategory", id)
+        .dispatch("deleteSource", id)
         .then(() => {
-          this.$toasted.success("Category deleted successfully", {
+          this.$toasted.success("Source deleted successfully", {
             theme: "bubble",
             position: "top-right",
             duration: 3000
           });
 
           this.$store
-            .dispatch("getCategories", this.$route.query)
+            .dispatch("getSources", this.$route.query)
             .then(() => {})
             .catch(() => {});
         })
