@@ -29,7 +29,7 @@ const createTransaction = async (req, res) => {
   }
 
   const transaction = await Transaction.create({
-    userId: transactionData.userId,
+    userId: req.user.id,
     type: transactionData.type,
     sourceId: transactionData.sourceId,
     title: transactionData.title,
@@ -53,7 +53,7 @@ const updateTransaction = async (req, res) => {
   const transaction = await Transaction.findByIdAndUpdate(
     req.params.id,
     {
-      userId: transactionData.userId,
+      userId: req.user.id,
       type: transactionData.type,
       sourceId: transactionData.sourceId,
       title: transactionData.title,
@@ -62,6 +62,7 @@ const updateTransaction = async (req, res) => {
       categoryId: transactionData.categoryId,
       note: transactionData.note,
       image: transactionData.image,
+      updatedOn: new Date(),
     },
     { new: true }
   );

@@ -6,7 +6,7 @@ const transactionSchema = Joi.object({
   sourceId: Joi.objectId().required().label("Source Id"),
   title: Joi.string().max(50).required().label("Title"),
   amount: Joi.number().required().label("Amount"),
-  spentOn: Joi.string().max(50).required().label("Spent On"),
+  spentOn: Joi.date().iso().required().label("Spent On"),
   categoryId: Joi.objectId().required().label("Category Id"),
   note: Joi.string().max(300).label("Note"),
   image: Joi.string().label("Image"),

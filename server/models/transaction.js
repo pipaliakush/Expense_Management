@@ -23,7 +23,7 @@ const TransactionsSchema = mongoose.Schema({
     required: true,
   },
   spentOn: {
-    type: String,
+    type: Date,
     required: true,
   },
   categoryId: {
