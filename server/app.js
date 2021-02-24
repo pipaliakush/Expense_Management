@@ -37,10 +37,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false, limit: "1mb" }));
 
 // parse application/json
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "1mb" }));
 
 // set cross origin headers
 app.use(
@@ -56,9 +56,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/api/v1", require("./routes/expense"));
-app.use("/api/v1", require("./routes/income"));
 app.use("/api/v1", require("./routes/authenticate"));
+app.use("/api/v1", require("./routes/transaction"));
 app.use("/api/v1/source", require("./routes/source"));
 app.use("/api/v1/category", require("./routes/category"));
 
