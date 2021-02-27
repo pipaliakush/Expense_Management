@@ -13,5 +13,11 @@ export default {
   },
   isLoading(state, value) {
     state.isLoading = value;
+  },
+  transactions(state, result) {
+    state.transactionsList = result;
+  },
+  transaction(state, result) {
+    state.singleTransactionList = result;
   }
 };

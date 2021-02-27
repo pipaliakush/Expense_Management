@@ -4,6 +4,7 @@ import axios from "axios";
 const prefix = "/api/v1";
 
 export default {
+  //category
   getCategories({ commit }) {
     const url = `${prefix}/category`;
     return request(axios, "get", url).then(response => {
@@ -22,6 +23,8 @@ export default {
     const url = `${prefix}/category/${id}`;
     return request(axios, "delete", url).then(response => {});
   },
+
+  //sources
   getSources({ commit }) {
     const url = `${prefix}/source`;
     return request(axios, "get", url).then(response => {
@@ -38,6 +41,32 @@ export default {
   },
   deleteSource({ dispatch }, id) {
     const url = `${prefix}/source/${id}`;
+    return request(axios, "delete", url).then(response => {});
+  },
+
+  //transactions
+  getTransactions({ commit }) {
+    const url = `${prefix}/transactions`;
+    return request(axios, "get", url).then(response => {
+      commit("transactions", response.data);
+    });
+  },
+  getSingleTransaction({ commit }, id) {
+    const url = `${prefix}/transaction/${id}`;
+    return request(axios, "get", url).then(response => {
+      commit("transaction", response.data);
+    });
+  },
+  addTransaction({ dispatch }, postData) {
+    const url = `${prefix}/transaction`;
+    return request(axios, "post", url, postData).then(response => {});
+  },
+  updateTransaction({ dispatch }, { id, postData }) {
+    const url = `${prefix}/transaction/${id}`;
+    return request(axios, "put", url, postData).then(response => {});
+  },
+  deleteTransaction({ dispatch }, id) {
+    const url = `${prefix}/transaction/${id}`;
     return request(axios, "delete", url).then(response => {});
   }
 };
