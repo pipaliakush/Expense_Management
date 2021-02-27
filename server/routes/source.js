@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
 const {
@@ -7,16 +7,16 @@ const {
   createSource,
   updateSource,
   deleteSource,
-} = require("../controllers/source");
+} = require('../controllers/source');
 
-router.get("/", getSources);
+router.get('/', getSources);
 
-router.get("/:id", getSourceById);
+router.get('/:id', getSourceById);
 
-router.post("/", createSource);
+router.post('/', createSource);
 
-router.put("/:id", updateSource);
+router.put('/:id', updateSource);
 
-router.delete("/:id", deleteSource);
+router.delete('/:id', deleteSource);
 
 module.exports = router;

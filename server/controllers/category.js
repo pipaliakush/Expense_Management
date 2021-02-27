@@ -1,6 +1,6 @@
-const Category = require("../models/category");
-const validateObjectId = require("./validators/objectId.validator");
-const validateCategory = require("./validators/category.validator");
+const Category = require('../models/category');
+const validateObjectId = require('./validators/objectId.validator');
+const validateCategory = require('./validators/category.validator');
 
 const getCategories = async (req, res) => {
   const categories = await Category.find({
@@ -17,7 +17,7 @@ const getCategoryById = async (req, res) => {
 
   const category = await Category.findById(req.params.id);
   if (!category) {
-    return res.status(404).send("The Category does not exist");
+    return res.status(404).send('The Category does not exist');
   }
 
   return res.send(category);
@@ -56,7 +56,7 @@ const updateCategory = async (req, res) => {
   );
 
   if (!category) {
-    return res.status(404).send("The Category to be updated does not exist.");
+    return res.status(404).send('The Category to be updated does not exist.');
   }
 
   return res.send(category);
@@ -70,7 +70,7 @@ const deleteCategory = async (req, res) => {
 
   const category = await Category.findByIdAndDelete(req.params.id);
   if (!category) {
-    return res.status(404).send("The Category to be deleted does not exist.");
+    return res.status(404).send('The Category to be deleted does not exist.');
   }
 
   return res.send(category);
