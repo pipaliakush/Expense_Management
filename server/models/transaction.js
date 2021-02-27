@@ -11,6 +11,7 @@ const TransactionsSchema = mongoose.Schema({
   },
   sourceId: {
     type: mongoose.Types.ObjectId,
+    ref: "Sources",
     required: true,
   },
   title: {
@@ -28,6 +29,7 @@ const TransactionsSchema = mongoose.Schema({
   },
   categoryId: {
     type: mongoose.Types.ObjectId,
+    ref: "Categories",
     required: true,
   },
   note: {
