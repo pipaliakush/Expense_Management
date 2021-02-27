@@ -122,6 +122,11 @@ export default {
           icon: "mdi-currency-usd",
           title: "Sources",
           to: "/sources"
+        },
+        {
+          icon: "mdi-receipt",
+          title: "Transactions",
+          to: "/transactions"
         }
       ],
       miniVariant: false,

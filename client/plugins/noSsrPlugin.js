@@ -3,6 +3,7 @@ import Vue from "vue";
 import VueCookies from "vue-cookies";
 import Toasted from "vue-toasted";
 import iconPicker from "e-icon-picker";
+import VCalendar from "v-calendar";
 
 import "e-icon-picker/dist/symbol.js"; //基本彩色图标库
 import "e-icon-picker/dist/index.css"; // 基本样式，包含基本图标
@@ -18,3 +19,8 @@ Vue.use(iconPicker, {
 // Vue.use(iconPicker, { FontAwesome: true });
 Vue.use(VueCookies);
 Vue.use(Toasted);
+
+// Use v-calendar & v-date-picker components
+Vue.use(VCalendar, {
+  componentPrefix: "vc" // Use <vc-calendar /> instead of <v-calendar />
+});
