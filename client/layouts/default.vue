@@ -172,7 +172,20 @@ export default {
     themeChanged() {
       localStorage.setItem("isDarkTheme", this.$vuetify.theme.dark);
     },
-    logout() {},
+    logout() {
+      this.$store
+            .dispatch("logout")
+            .then(() => {
+              this.$router.push('/login');
+            })
+            .catch(() => {
+              this.$toasted.error("Failed to logout", {
+                theme: "bubble",
+                position: "top-right",
+                duration: 3000,
+              });
+            });
+    },
   },
 };
 </script>

@@ -1,6 +1,6 @@
-const passport = require("passport");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const User = require("../models/user");
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const User = require('../models/user');
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -12,7 +12,7 @@ passport.deserializeUser(async function (user, done) {
   if (existedUser) {
     done(null, user);
   } else {
-    done(new Error("Failed to deserialize an user"));
+    done(new Error('Failed to deserialize an user'));
   }
 });
 

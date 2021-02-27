@@ -21,9 +21,13 @@
           <td>{{ item.amount }}</td>
         </tr>
       </tbody>
-      <div class="m-5 text-center" v-else>
-        No Records Found
-      </div>
+      <tbody v-else>
+        <tr>
+          <td colspan="3">
+            No Records Found
+          </td>
+        </tr>
+      </tbody>
     </template>
   </v-simple-table>
 </template>

@@ -1,6 +1,6 @@
-const Source = require("../models/source");
-const validateObjectId = require("./validators/objectId.validator");
-const validateSource = require("./validators/source.validator");
+const Source = require('../models/source');
+const validateObjectId = require('./validators/objectId.validator');
+const validateSource = require('./validators/source.validator');
 
 const getSources = async (req, res) => {
   const sources = await Source.find({
@@ -17,7 +17,7 @@ const getSourceById = async (req, res) => {
 
   const source = await Source.findById(req.params.id);
   if (!source) {
-    return res.status(404).send("The Source does not exist");
+    return res.status(404).send('The Source does not exist');
   }
 
   return res.send(source);
@@ -56,7 +56,7 @@ const updateSource = async (req, res) => {
   );
 
   if (!source) {
-    return res.status(404).send("The Source to be updated does not exist.");
+    return res.status(404).send('The Source to be updated does not exist.');
   }
 
   return res.send(source);
@@ -70,7 +70,7 @@ const deleteSource = async (req, res) => {
 
   const source = await Source.findByIdAndDelete(req.params.id);
   if (!source) {
-    return res.status(404).send("The Source to be deleted does not exist.");
+    return res.status(404).send('The Source to be deleted does not exist.');
   }
 
   return res.send(source);

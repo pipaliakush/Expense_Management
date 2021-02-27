@@ -10,9 +10,6 @@
             Icon
           </th>
           <th class="text-left">
-            Default
-          </th>
-          <th class="text-left">
             Actions
           </th>
         </tr>
@@ -21,7 +18,6 @@
         <tr v-for="item in categoriesList" :key="item._id">
           <td>{{ item.name }}</td>
           <td><i :class="item.icon" class="fa-2x" aria-hidden="true"></i></td>
-          <td><span v-if="item.isDefault">Yes</span><span v-else>No</span></td>
           <td v-if="!item.isDefault" class="d-flex text-center align-center">
             <Edit :formData="item" />
             <div class="ml-2">
@@ -38,9 +34,13 @@
           <td v-else>-</td>
         </tr>
       </tbody>
-      <div class="m-5 text-center" v-else>
-        No Records Found
-      </div>
+      <tbody v-else>
+        <tr>
+          <td colspan="3">
+            No Records Found
+          </td>
+        </tr>
+      </tbody>
     </template>
   </v-simple-table>
 </template>

@@ -68,5 +68,8 @@ export default {
   deleteTransaction({ dispatch }, id) {
     const url = `${prefix}/transaction/${id}`;
     return request(axios, "delete", url).then(response => {});
+  },
+  logout() {
+    return request(axios, "post", `${prefix}/auth/logout`);
   }
 };

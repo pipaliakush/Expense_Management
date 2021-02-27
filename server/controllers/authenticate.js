@@ -12,6 +12,16 @@ const login = async (req, res, next) => {
     });
   }
 };
+
+const logout = async (req, res) => {
+  req.logout();
+  req.session = null;
+  await res.clearCookie('auth');
+  await res.clearCookie('auth.sig');
+  return res.end();
+};
+
 module.exports = {
   login,
+  logout,
 };
