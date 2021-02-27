@@ -1,4 +1,4 @@
-const { login } = require("../controllers/authenticate");
+const { login, logout } = require("../controllers/authenticate");
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
@@ -17,5 +17,7 @@ router.get(
 );
 
 router.get("/auth/login", login);
+
+router.post("/auth/logout", logout);
 
 module.exports = router;
