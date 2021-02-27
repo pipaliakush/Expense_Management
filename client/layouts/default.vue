@@ -37,7 +37,11 @@
       </v-btn> -->
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-menu offset-y>
+      <v-menu
+        offset-y
+        transition="slide-y-transition"
+        :close-on-content-click="false"
+      >
         <template v-slot:activator="{ on: menu, attrs }">
           <v-tooltip bottom>
             <template v-slot:activator="{ on: tooltip }">
@@ -48,22 +52,48 @@
                 v-bind="attrs"
                 v-on="{ ...tooltip, ...menu }"
               >
-                <v-avatar class="cursor-pointer">
-                  <img :src="$store.state.user.avatar" alt="user" />
+                <v-avatar tar class="cursor-pointer">
+                  <img
+                    :src="$store.state.user.avatar"
+                    :alt="$store.state.user.name"
+                  />
                 </v-avatar>
               </v-btn>
             </template>
             <span>Profile</span>
           </v-tooltip>
         </template>
-        <v-list>
-          <v-list-item @click="">
-            <v-list-item-title>Profile</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="logout" class="cursor-pointer">
-            <v-list-item-title>Logout</v-list-item-title>
-          </v-list-item>
-        </v-list>
+
+        <v-card>
+          <v-list>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>{{
+                  $store.state.user.name
+                }}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+
+          <v-divider></v-divider>
+
+          <v-list>
+            <v-list-item>
+              <v-list-item-title>Switch Theme</v-list-item-title>
+              <v-list-item-action>
+                <v-switch
+                  v-model="$vuetify.theme.dark"
+                  @change="themeChanged"
+                  inset
+                ></v-switch>
+              </v-list-item-action>
+            </v-list-item>
+
+            <v-list-item @click="logout" class="cursor-pointer">
+              <v-list-item-title>Logout</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-card>
       </v-menu>
       <!-- <v-btn class="mx-2" fab dark small @click="helloclick">
         <v-avatar>
@@ -102,6 +132,9 @@
 import "@/assets/css/adminify.js";
 
 export default {
+  beforeMount() {
+    this.$vuetify.theme.dark = localStorage.getItem("isDarkTheme") === "true";
+  },
   data() {
     return {
       clipped: false,
@@ -111,12 +144,12 @@ export default {
         {
           icon: "mdi-apps",
           title: "Dashboard",
-          to: "/"
+          to: "/",
         },
         {
           icon: "mdi-chart-bubble",
           title: "Categories",
-          to: "/categories"
+          to: "/categories",
         },
         {
           icon: "mdi-currency-usd",
@@ -127,16 +160,19 @@ export default {
           icon: "mdi-receipt",
           title: "Transactions",
           to: "/transactions"
-        }
+        },
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: "Expense Management"
+      title: "Expense Management",
     };
   },
   methods: {
-    logout() {}
-  }
+    themeChanged() {
+      localStorage.setItem("isDarkTheme", this.$vuetify.theme.dark);
+    },
+    logout() {},
+  },
 };
 </script>
