@@ -23,6 +23,7 @@ const getTransactionById = async (req, res) => {
 
 const createTransaction = async (req, res) => {
   const transactionData = req.body;
+  transactionData.userId = req.user.id;
   const { error } = validateTransaction(transactionData);
   if (error) {
     return res.status(400).send(error.details[0].message);
@@ -45,6 +46,7 @@ const createTransaction = async (req, res) => {
 
 const updateTransaction = async (req, res) => {
   const transactionData = req.body;
+  transactionData.userId = req.user.id;
   const { error } = validateTransaction(transactionData);
   if (error) {
     return res.status(400).send(error.details[0].message);
