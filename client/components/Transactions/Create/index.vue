@@ -11,9 +11,7 @@
           dark
           color="indigo"
         >
-          <v-icon dark>
-            mdi-plus
-          </v-icon>
+          <v-icon dark> mdi-plus </v-icon>
         </v-btn>
       </template>
       <v-card>
@@ -120,12 +118,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="close">
-            Cancel
-          </v-btn>
-          <v-btn color="blue darken-1" text @click="save">
-            Save
-          </v-btn>
+          <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
+          <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -149,13 +143,13 @@ export default {
         spentOn: new Date().toISOString(),
         categoryId: null,
         note: "",
-        image: null
+        image: null,
       },
       selectedImage: null,
       modelConfig: {
         type: "string",
-        mask: "iso"
-      }
+        mask: "iso",
+      },
     };
   },
   mounted() {
@@ -168,7 +162,7 @@ export default {
     },
     sourcesOptions() {
       return this.$store.state.sourcesList;
-    }
+    },
   },
   methods: {
     // encodeImageFileAsURL() {
@@ -184,8 +178,17 @@ export default {
     },
     close() {
       this.dialog = false;
-      this.form.name = "";
-      this.form.type = "Bank";
+      this.form = {
+        type: "expense",
+        sourceId: null,
+        title: "",
+        amount: null,
+        spentOn: new Date().toISOString(),
+        categoryId: null,
+        note: "",
+        image: null,
+      };
+      this.selectedImage = null;
     },
     save() {
       this.$store
@@ -194,7 +197,7 @@ export default {
           this.$toasted.success("Transaction created successfully", {
             theme: "bubble",
             position: "top-right",
-            duration: 3000
+            duration: 3000,
           });
           this.close();
 
@@ -204,8 +207,8 @@ export default {
             .catch(() => {});
         })
         .catch(() => {});
-    }
-  }
+    },
+  },
 };
 </script>
 

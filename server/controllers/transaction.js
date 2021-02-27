@@ -3,7 +3,9 @@ const validateObjectId = require('./validators/objectId.validator');
 const validateTransaction = require('./validators/transaction.validator');
 
 const getTransactions = async (req, res) => {
-  const transactions = await Transaction.find({ userId: req.user.id });
+  const transactions = await Transaction.find({ userId: req.user.id })
+    .populate('sourceId')
+    .populate('categoryId');
   res.send(transactions);
 };
 
@@ -13,7 +15,9 @@ const getTransactionById = async (req, res) => {
     return res.status(400).send(error.details[0].message);
   }
 
-  const transaction = await Transaction.findById(req.params.id);
+  const transaction = await Transaction.findById(req.params.id)
+    .populate('sourceId')
+    .populate('categoryId');
   if (!transaction) {
     return res.status(404).send('The Transaction does not exist');
   }

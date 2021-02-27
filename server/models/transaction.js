@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const TransactionsSchema = mongoose.Schema({
   userId: {
     type: mongoose.Types.ObjectId,
@@ -6,11 +6,12 @@ const TransactionsSchema = mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ['income', 'expense'],
+    enum: ["income", "expense"],
     required: true,
   },
   sourceId: {
     type: mongoose.Types.ObjectId,
+    ref: "Sources",
     required: true,
   },
   title: {
@@ -28,6 +29,7 @@ const TransactionsSchema = mongoose.Schema({
   },
   categoryId: {
     type: mongoose.Types.ObjectId,
+    ref: "Categories",
     required: true,
   },
   note: {
@@ -47,4 +49,4 @@ const TransactionsSchema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Transactions', TransactionsSchema);
+module.exports = mongoose.model("Transactions", TransactionsSchema);
