@@ -22,5 +22,8 @@ export default {
   },
   selectedImage(state, result) {
     state.selectedImage = result;
+  },
+  dashboard(state, result) {
+    state.dashboard = result;
   }
 };

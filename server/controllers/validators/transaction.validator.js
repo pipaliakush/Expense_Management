@@ -9,7 +9,7 @@ const transactionSchema = Joi.object({
   spentOn: Joi.date().iso().required().label('Spent On'),
   categoryId: Joi.objectId().required().label('Category Id'),
   note: Joi.string().allow('').max(300).label('Note'),
-  image: Joi.string().allow(null).label('Image'),
+  image: Joi.string().allow(null).allow('').label('Image'),
 });
 
 const validateTransaction = (source) => {
