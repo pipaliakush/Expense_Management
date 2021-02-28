@@ -5,6 +5,7 @@ export default function() {
     sourcesList: null,
     transactionsList: null,
     singleTransactionList: null,
-    isLoading: false
+    isLoading: false,
+    selectedImage: null
   };
 }

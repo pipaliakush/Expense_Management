@@ -19,5 +19,8 @@ export default {
   },
   transaction(state, result) {
     state.singleTransactionList = result;
+  },
+  selectedImage(state, result) {
+    state.selectedImage = result;
   }
 };
