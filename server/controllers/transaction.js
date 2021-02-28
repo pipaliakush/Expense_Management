@@ -28,11 +28,15 @@ const getTransactions = async (req, res) => {
         $gte: new Date(startDate).toISOString(),
         $lte: new Date(endDate).toISOString(),
       },
-    });
+    })
+      .sort({ spentOn: -1 })
+      .populate('sourceId')
+      .populate('categoryId');
 
     return res.send(transaction);
   } else {
     const transactions = await Transaction.find({ userId: req.user.id })
+      .sort({ spentOn: -1 })
       .populate('sourceId')
       .populate('categoryId');
     res.send(transactions);

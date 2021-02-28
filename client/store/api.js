@@ -5,7 +5,8 @@ export function request(axios, type, url, data) {
   switch (type) {
     case "get":
       request = axios.get(newUrl, {
-        withCredentials: true
+        withCredentials: true,
+        params: data
       });
       break;
     case "post":

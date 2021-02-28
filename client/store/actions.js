@@ -71,5 +71,48 @@ export default {
   },
   logout() {
     return request(axios, "post", `${prefix}/auth/logout`);
+  },
+  getTransactionsByDate({ commit }, queryParam) {
+    const url = `${prefix}/transactions`;
+    return request(axios, "get", url, queryParam).then(response => {
+      const data = response.data;
+      const dashboardData = data.reduce((acc, item) => {
+        if (acc.lineChart === undefined) {
+          acc.lineChart = {};
+          acc.lineChart.income = [];
+          acc.lineChart.expense = [];
+        }
+
+        if (item.type === "income") {
+          acc.income = acc.income ? acc.income + item.amount : item.amount;
+          acc.lineChart.income.push([item.spentOn, item.amount]);
+        } else {
+          acc.expense = acc.expense ? acc.expense + item.amount : item.amount;
+          acc.lineChart.expense.push([item.spentOn, item.amount]);
+        }
+
+        if (acc.catogoryChart === undefined) {
+          acc.catogoryChart = {};
+        }
+        if (acc.catogoryChart[item.categoryId.name] === undefined) {
+          acc.catogoryChart[item.categoryId.name] = 0;
+        }
+        acc.catogoryChart[item.categoryId.name] =
+          acc.catogoryChart[item.categoryId.name] + item.amount;
+
+        if (acc.sourceChart === undefined) {
+          acc.sourceChart = {};
+        }
+        if (acc.sourceChart[item.sourceId.name] === undefined) {
+          acc.sourceChart[item.sourceId.name] = 0;
+        }
+        acc.sourceChart[item.sourceId.name] =
+          acc.sourceChart[item.sourceId.name] + item.amount;
+
+        return acc;
+      }, {});
+
+      commit("dashboard", dashboardData);
+    });
   }
 };
