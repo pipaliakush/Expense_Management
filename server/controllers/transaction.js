@@ -1,12 +1,42 @@
 const Transaction = require('../models/transaction');
 const validateObjectId = require('./validators/objectId.validator');
-const validateTransaction = require('./validators/transaction.validator');
+const {
+  validateTransaction,
+  validateTransactionQueryParams,
+} = require('./validators/transaction.validator');
 
 const getTransactions = async (req, res) => {
-  const transactions = await Transaction.find({ userId: req.user.id })
-    .populate('sourceId')
-    .populate('categoryId');
-  res.send(transactions);
+  let startDate = req.query.startDate;
+  let endDate = req.query.endDate;
+  if (startDate && endDate) {
+    const { error } = validateTransactionQueryParams({ startDate, endDate });
+    if (startDate === endDate) {
+      startDate = new Date().setHours(0, 0, 0, 0);
+      endDate = new Date().setHours(23, 59, 59, 999);
+    } else {
+      startDate = new Date(startDate).setHours(0, 0, 0, 0);
+      endDate = new Date(endDate).setHours(23, 59, 59, 999);
+    }
+
+    if (error) {
+      return res.status(400).send(error.details[0].message);
+    }
+
+    const transaction = await Transaction.find({
+      userId: req.user.id,
+      spentOn: {
+        $gte: new Date(startDate).toISOString(),
+        $lte: new Date(endDate).toISOString(),
+      },
+    });
+
+    return res.send(transaction);
+  } else {
+    const transactions = await Transaction.find({ userId: req.user.id })
+      .populate('sourceId')
+      .populate('categoryId');
+    res.send(transactions);
+  }
 };
 
 const getTransactionById = async (req, res) => {
