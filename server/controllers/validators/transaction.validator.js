@@ -8,12 +8,24 @@ const transactionSchema = Joi.object({
   amount: Joi.number().required().label('Amount'),
   spentOn: Joi.date().iso().required().label('Spent On'),
   categoryId: Joi.objectId().required().label('Category Id'),
-  note: Joi.string().max(300).label('Note'),
-  image: Joi.string().label('Image'),
+  note: Joi.string().allow('').max(300).label('Note'),
+  image: Joi.string().allow(null).label('Image'),
 });
 
 const validateTransaction = (source) => {
   return transactionSchema.validate(source);
 };
 
-module.exports = validateTransaction;
+const transactionQueryParamSchema = Joi.object({
+  startDate: Joi.date().iso().required().label('Start Date'),
+  endDate: Joi.date().iso().required().label('End Date'),
+});
+
+const validateTransactionQueryParams = (queryParams) => {
+  return transactionQueryParamSchema.validate(queryParams);
+};
+
+module.exports = {
+  validateTransaction,
+  validateTransactionQueryParams,
+};
