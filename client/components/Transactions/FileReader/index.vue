@@ -17,7 +17,6 @@
 export default {
   data() {
     return {
-      selectedImage: null,
       rules: [
         value =>
           !value ||
@@ -26,12 +25,26 @@ export default {
       ]
     };
   },
+  computed: {
+    selectedImage: {
+      get: function() {
+        return this.$store.state.selectedImage;
+      },
+      set: function(val) {
+        this.$store.commit("selectedImage", val);
+      }
+    }
+  },
   methods: {
     encodeImageFileAsURL() {
-      const reader = new FileReader();
+      if (this.selectedImage != null && this.selectedImage != undefined) {
+        const reader = new FileReader();
 
-      reader.onload = e => this.$emit("load", e.target.result);
-      reader.readAsDataURL(this.selectedImage);
+        reader.onload = e => this.$emit("load", e.target.result);
+        reader.readAsDataURL(this.selectedImage);
+      } else {
+        this.$emit("load", "");
+      }
     }
   }
 };

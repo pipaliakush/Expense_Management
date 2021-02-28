@@ -2,26 +2,18 @@
   <div>
     <v-dialog v-model="dialog" persistent max-width="600px">
       <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          v-bind="attrs"
-          v-on="on"
-          small
-          class="mx-2"
-          fab
-          dark
-          color="indigo"
-        >
-          <v-icon dark> mdi-plus </v-icon>
+        <v-btn x-small color="primary" dark v-bind="attrs" v-on="on">
+          Edit
         </v-btn>
       </template>
       <v-card>
         <v-card-title>
-          <span class="headline">Add Transaction</span>
+          <span class="headline">Edit Transaction</span>
         </v-card-title>
         <v-card-text>
           <v-container>
             <label for="type">Transaction Type</label>
-            <v-radio-group v-model="form.type" row>
+            <v-radio-group disabled v-model="form.type" row>
               <v-radio label="Income" value="income"></v-radio>
               <v-radio label="Expense" value="expense"></v-radio>
             </v-radio-group>
@@ -115,6 +107,7 @@
               </v-col>
             </v-row>
             <v-row v-if="form.image != ''">
+              <label class="v-label ml-4" for="img">Current Image:</label>
               <v-col cols="12" class="d-flex justify-center">
                 <v-img
                   class="text-center"
@@ -142,18 +135,37 @@ import FileReader from "@/components/Transactions/FileReader/index.vue";
 
 export default {
   components: { Create, FileReader },
+  props: {
+    formData: {
+      type: Object
+    }
+  },
+  watch: {
+    formData() {
+      this.form = {
+        type: this.formData.type,
+        sourceId: this.formData.sourceId._id,
+        title: this.formData.title,
+        amount: this.formData.amount,
+        spentOn: new Date(this.formData.spentOn).toISOString(),
+        categoryId: this.formData.categoryId._id,
+        note: this.formData.note,
+        image: this.formData.image
+      };
+    }
+  },
   data() {
     return {
       dialog: false,
       form: {
-        type: "expense",
-        sourceId: null,
-        title: "",
-        amount: null,
-        spentOn: new Date().toISOString(),
-        categoryId: null,
-        note: "",
-        image: ""
+        type: this.formData.type,
+        sourceId: this.formData.sourceId._id,
+        title: this.formData.title,
+        amount: this.formData.amount,
+        spentOn: new Date(this.formData.spentOn).toISOString(),
+        categoryId: this.formData.categoryId._id,
+        note: this.formData.note,
+        image: this.formData.image
       },
       modelConfig: {
         type: "string",
@@ -180,22 +192,27 @@ export default {
     close() {
       this.dialog = false;
       this.form = {
-        type: "expense",
-        sourceId: null,
-        title: "",
-        amount: null,
-        spentOn: new Date().toISOString(),
-        categoryId: null,
-        note: "",
-        image: ""
+        type: this.formData.type,
+        sourceId: this.formData.sourceId._id,
+        title: this.formData.title,
+        amount: this.formData.amount,
+        spentOn: new Date(this.formData.spentOn).toISOString(),
+        categoryId: this.formData.categoryId._id,
+        note: this.formData.note,
+        image: this.formData.image
       };
       this.$store.commit("selectedImage", null);
     },
     save() {
+      const data = {
+        id: this.formData._id,
+        postData: this.form
+      };
+
       this.$store
-        .dispatch("addTransaction", this.form)
+        .dispatch("updateTransaction", data)
         .then(() => {
-          this.$toasted.success("Transaction created successfully", {
+          this.$toasted.success("Transaction updated successfully", {
             theme: "bubble",
             position: "top-right",
             duration: 3000
