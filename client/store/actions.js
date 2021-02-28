@@ -1,6 +1,8 @@
 import { request } from "@/store/api.js";
 import axios from "axios";
 
+import { generateQueryForTransaction } from "@/static/static/app.js";
+
 const prefix = "/api/v1";
 
 export default {
@@ -45,8 +47,11 @@ export default {
   },
 
   //transactions
-  getTransactions({ commit }) {
-    const url = `${prefix}/transactions`;
+
+  getTransactions({ commit }, { filterBy }) {
+    const queryString = generateQueryForTransaction({ filterBy });
+
+    const url = `${prefix}/transactions?${queryString}`;
     return request(axios, "get", url).then(response => {
       commit("transactions", response.data);
     });
