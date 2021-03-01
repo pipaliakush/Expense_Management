@@ -5,14 +5,14 @@
         Filter by Date&nbsp;
         <date-range-picker
           opens="right"
-          single-date-picker="range"
+          :single-date-picker="false"
           :locale-data="localData"
           :showWeekNumbers="true"
           :showDropdowns="true"
           :autoApply="true"
           v-model="dateRange"
           @update="updateValues"
-          :ranges="ranges"
+          :ranges="false"
           :date-format="dateFormat"
         >
           <!-- <template v-slot:input="picker" style="min-width: 350px">
@@ -66,6 +66,16 @@ export default {
       this.$router.push({ query: { filterBy: "all" } });
       this.selectedFilter = "all";
     }
+
+    if (this.$route.query && this.$route.query.startDate) {
+      let parts = this.$route.query.startDate.split("-");
+      this.dateRange.startDate = new Date(parts[2], parts[1] - 1, parts[0]);
+    }
+
+    if (this.$route.query && this.$route.query.endDate) {
+      let parts = this.$route.query.endDate.split("-");
+      this.dateRange.endDate = new Date(parts[2], parts[1] - 1, parts[0]);
+    }
   },
   data() {
     return {
@@ -79,8 +89,8 @@ export default {
         { label: "Incomes", value: "incomes" }
       ],
       dateRange: {
-        startDate: moment(),
-        endDate: moment()
+        startDate: moment().startOf("month"),
+        endDate: moment().endOf("month")
       },
       ranges: {
         Today: [moment(), moment()],
@@ -112,6 +122,22 @@ export default {
     };
   },
   methods: {
+    convertISOToFormattedString: function(isoDate) {
+      let date = new Date(isoDate);
+      let year = date.getFullYear();
+      let month = date.getMonth() + 1;
+      let dt = date.getDate();
+
+      if (dt < 10) {
+        dt = "0" + dt;
+      }
+      if (month < 10) {
+        month = "0" + month;
+      }
+
+      let formattedDate = dt + "-" + month + "-" + year;
+      return formattedDate;
+    },
     dateFormat(classes, date) {
       if (!classes.disabled) {
         classes.disabled = date.getTime() > new Date();
@@ -119,7 +145,10 @@ export default {
       return classes;
     },
     filterSelected() {
-      this.$router.push({ query: { filterBy: this.selectedFilter } });
+      const query = Object.assign({}, this.$route.query, {
+        filterBy: this.selectedFilter
+      });
+      this.$router.push({ query });
     },
     getTransactions() {
       this.$store
@@ -128,10 +157,18 @@ export default {
         .catch(() => {});
     },
     updateValues() {
-      const startDate = new Date(this.dateRange.startDate).toISOString();
-      const endDate = new Date(this.dateRange.endDate).toISOString();
-      console.log(startDate);
-      console.log(endDate);
+      const startDate = this.convertISOToFormattedString(
+        new Date(this.dateRange.startDate).toISOString()
+      );
+      const endDate = this.convertISOToFormattedString(
+        new Date(this.dateRange.endDate).toISOString()
+      );
+
+      const query = Object.assign({}, this.$route.query, {
+        startDate,
+        endDate
+      });
+      this.$router.push({ query });
     }
   }
 };
