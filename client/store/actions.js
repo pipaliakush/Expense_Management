@@ -48,8 +48,12 @@ export default {
 
   //transactions
 
-  getTransactions({ commit }, { filterBy }) {
-    const queryString = generateQueryForTransaction({ filterBy });
+  getTransactions({ commit }, { filterBy, startDate, endDate }) {
+    const queryString = generateQueryForTransaction({
+      filterBy,
+      startDate,
+      endDate
+    });
 
     const url = `${prefix}/transactions?${queryString}`;
     return request(axios, "get", url).then(response => {
