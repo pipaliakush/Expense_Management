@@ -1,7 +1,7 @@
 export function generateQueryForTransaction({ filterBy, startDate, endDate }) {
   const _queryString = [];
 
-  const filterByIds = ["all", "expenses", "incomes"];
+  const filterByIds = ["all", "expense", "income"];
   if (filterBy && filterByIds.includes(filterBy)) {
     _queryString.push(`filterBy=${filterBy}`);
   } else {

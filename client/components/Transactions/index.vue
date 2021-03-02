@@ -37,7 +37,7 @@
       <Create />
     </div>
 
-    <!-- <Table /> -->
+    <Table />
   </div>
 </template>
 
@@ -61,7 +61,7 @@ export default {
   mounted() {
     if (
       this.$route.query &&
-      !["all", "expenses", "incomes"].includes(this.$route.query.filterBy)
+      !["all", "expense", "income"].includes(this.$route.query.filterBy)
     ) {
       this.$router.push({ query: { filterBy: "all" } });
       this.selectedFilter = "all";
@@ -85,8 +85,8 @@ export default {
           : "all",
       filters: [
         { label: "All Transactions", value: "all" },
-        { label: "Expenses", value: "expenses" },
-        { label: "Incomes", value: "incomes" }
+        { label: "Expenses", value: "expense" },
+        { label: "Incomes", value: "income" }
       ],
       dateRange: {
         startDate: moment().startOf("month"),

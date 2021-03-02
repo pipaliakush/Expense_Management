@@ -24,7 +24,7 @@
           </th>
         </tr>
       </thead>
-      <tbody v-if="transactionsList.length">
+      <tbody v-if="transactionsList && transactionsList.length">
         <tr v-for="item in transactionsList" :key="item._id">
           <td>
             <i
