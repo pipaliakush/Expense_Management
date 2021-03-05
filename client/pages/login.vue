@@ -6,12 +6,26 @@
           <v-col cols="12" sm="8" md="8">
             <v-card class="elevation-12">
               <v-row>
-                <v-col cols="12" md="8" class="grey darken-3">
+                <v-col
+                  cols="12"
+                  md="8"
+                  :class="
+                    $vuetify.theme.dark
+                      ? 'grey darken-3'
+                      : 'blue-grey lighten-5'
+                  "
+                >
                   <v-card-text class="white--text mt-8">
-                    <h1 class="text-center display-1 mb-4">
+                    <h1
+                      class="text-center display-1 mb-4"
+                      :class="$vuetify.theme.dark ? '' : 'primary--text'"
+                    >
                       Expense Management
                     </h1>
-                    <h5 class="text-center">
+                    <h5
+                      class="text-center"
+                      :class="$vuetify.theme.dark ? '' : 'black--text'"
+                    >
                       Start journay with us
                     </h5>
                   </v-card-text>
@@ -26,7 +40,13 @@
                     </p>
                   </div>
                 </v-col>
-                <v-col cols="12" md="4" class="grey darken-4">
+                <v-col
+                  cols="12"
+                  md="4"
+                  :class="
+                    $vuetify.theme.dark ? 'grey darken-4' : 'blue-grey darken-4'
+                  "
+                >
                   <v-card-text class="mt-1">
                     <div class="text-center mt-4">
                       <img

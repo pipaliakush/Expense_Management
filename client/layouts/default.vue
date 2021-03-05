@@ -144,12 +144,12 @@ export default {
         {
           icon: "mdi-apps",
           title: "Dashboard",
-          to: "/",
+          to: "/"
         },
         {
           icon: "mdi-chart-bubble",
           title: "Categories",
-          to: "/categories",
+          to: "/categories"
         },
         {
           icon: "mdi-currency-usd",
@@ -160,12 +160,12 @@ export default {
           icon: "mdi-receipt",
           title: "Transactions",
           to: "/transactions"
-        },
+        }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: "Expense Management",
+      title: "Expense Management"
     };
   },
   methods: {
@@ -174,18 +174,18 @@ export default {
     },
     logout() {
       this.$store
-            .dispatch("logout")
-            .then(() => {
-              this.$router.push('/login');
-            })
-            .catch(() => {
-              this.$toasted.error("Failed to logout", {
-                theme: "bubble",
-                position: "top-right",
-                duration: 3000,
-              });
-            });
-    },
-  },
+        .dispatch("logout")
+        .then(() => {
+          this.$router.push("/login");
+        })
+        .catch(() => {
+          this.$toasted.error("Failed to logout", {
+            theme: "bubble",
+            position: "top-right",
+            duration: 3000
+          });
+        });
+    }
+  }
 };
 </script>
