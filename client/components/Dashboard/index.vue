@@ -1,24 +1,72 @@
 <template>
   <div>
     <v-row class="mt-5 mb-5">
-      <v-col cols="6">
-        <v-card elevation="8">
-          <p class="pa-3">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam
-            architecto magni animi praesentium id impedit explicabo eos ullam,
-            vero esse doloremque ipsam asperiores libero porro sit assumenda
-            quae temporibus totam!
-          </p>
+      <v-col cols="3">
+        <v-card class="mx-auto" max-width="344" outlined>
+          <v-list-item three-line>
+            <v-list-item-content>
+              <div class="overline mb-4">Income</div>
+              <v-list-item-title class="headline mb-1"
+                >₹9,50,000</v-list-item-title
+              >
+            </v-list-item-content>
+
+            <v-list-item-avatar tile>
+              <v-icon size="40">
+                mdi-finance
+              </v-icon>
+            </v-list-item-avatar>
+          </v-list-item>
         </v-card>
       </v-col>
-      <v-col cols="6">
-        <v-card elevation="8">
-          <p class="pa-3">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde
-            excepturi molestias repudiandae natus eius perferendis tempora
-            ratione maxime, officia voluptate consequuntur quos iste deserunt
-            quaerat! Unde est sit cum iure!
-          </p>
+      <v-col cols="3">
+        <v-card class="mx-auto" max-width="344" outlined>
+          <v-list-item three-line>
+            <v-list-item-content>
+              <div class="overline mb-4">Expenses</div>
+              <v-list-item-title class="headline mb-1"
+                >₹50,000</v-list-item-title
+              >
+            </v-list-item-content>
+
+            <v-list-item-avatar tile>
+              <v-icon size="40">
+                mdi-poll
+              </v-icon>
+            </v-list-item-avatar>
+          </v-list-item>
+        </v-card>
+      </v-col>
+      <v-col cols="3">
+        <v-card class="mx-auto" max-width="344" outlined>
+          <v-list-item three-line>
+            <v-list-item-content>
+              <div class="overline mb-4">Total Categories</div>
+              <v-list-item-title class="headline mb-1">13</v-list-item-title>
+            </v-list-item-content>
+
+            <v-list-item-avatar tile>
+              <v-icon size="40">
+                mdi-format-list-bulleted-type
+              </v-icon>
+            </v-list-item-avatar>
+          </v-list-item>
+        </v-card>
+      </v-col>
+      <v-col cols="3">
+        <v-card class="mx-auto" max-width="344" outlined>
+          <v-list-item three-line>
+            <v-list-item-content>
+              <div class="overline mb-4">Number of Sources</div>
+              <v-list-item-title class="headline mb-1">5</v-list-item-title>
+            </v-list-item-content>
+
+            <v-list-item-avatar tile>
+              <v-icon size="40">
+                mdi-wallet-travel
+              </v-icon>
+            </v-list-item-avatar>
+          </v-list-item>
         </v-card>
       </v-col>
     </v-row>

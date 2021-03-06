@@ -174,8 +174,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .daterangepicker .drp-calendar {
   max-width: 265px;
+}
+
+.form-control.reportrange-text span,
+.form-control.reportrange-text i {
+  color: black;
+}
+.calendar-table tbody :not(.week):not(.disabled) {
+  color: black;
 }
 </style>
