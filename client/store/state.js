@@ -6,6 +6,7 @@ export default function() {
     transactionsList: null,
     singleTransactionList: null,
     isLoading: false,
-    selectedImage: null
+    selectedImage: null,
+    dashboard: null
   };
 }

@@ -18,3 +18,17 @@ export function generateQueryForTransaction({ filterBy, startDate, endDate }) {
 
   return _queryString.join("&");
 }
+
+export function generateQueryForDashboard({ startDate, endDate }) {
+  const _queryString = [];
+
+  if (startDate && startDate != null && startDate != undefined) {
+    _queryString.push(`startDate=${startDate}`);
+  }
+
+  if (endDate && endDate != null && endDate != undefined) {
+    _queryString.push(`endDate=${endDate}`);
+  }
+
+  return _queryString.join("&");
+}

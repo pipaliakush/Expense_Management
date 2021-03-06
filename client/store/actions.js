@@ -1,7 +1,10 @@
 import { request } from "@/store/api.js";
 import axios from "axios";
 
-import { generateQueryForTransaction } from "@/static/static/app.js";
+import {
+  generateQueryForTransaction,
+  generateQueryForDashboard
+} from "@/static/js/app.js";
 
 const prefix = "/api/v1";
 
@@ -84,5 +87,16 @@ export default {
   getDashboardData({ commit }, queryParam) {
     const url = `${prefix}/transactions`;
     return request(axios, "get", url, queryParam);
+  },
+  getDashboard({ commit }, { startDate, endDate }) {
+    const queryString = generateQueryForDashboard({
+      startDate,
+      endDate
+    });
+
+    const url = `${prefix}/dashboard?${queryString}`;
+    return request(axios, "get", url).then(response => {
+      commit("dashboard", response.data);
+    });
   }
 };
