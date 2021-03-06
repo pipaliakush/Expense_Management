@@ -60,6 +60,7 @@ app.use('/api/v1', require('./routes/authenticate'));
 app.use('/api/v1', require('./routes/transaction'));
 app.use('/api/v1/source', require('./routes/source'));
 app.use('/api/v1/category', require('./routes/category'));
+app.use('/api/v1/dashboard', require('./routes/dashboard'));
 
 // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
