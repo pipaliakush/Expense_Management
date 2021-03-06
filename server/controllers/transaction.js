@@ -1,9 +1,12 @@
 const Transaction = require('../models/transaction');
+
 const validateObjectId = require('./validators/objectId.validator');
 const {
   validateTransaction,
   validateTransactionQueryParams,
 } = require('./validators/transaction.validator');
+
+const { getDateFromString } = require('./queryDataParsers');
 
 const getTransactions = async (req, res) => {
   const { error } = validateTransactionQueryParams(req.query);
@@ -21,8 +24,7 @@ const getTransactions = async (req, res) => {
   }
 
   if (startDate) {
-    const parts = startDate.split('-');
-    startDate = new Date(parts[2], parts[1] - 1, parts[0]);
+    startDate = getDateFromString(startDate);
 
     whereConditions.spentOn = {
       $gte: startDate.toISOString(),
@@ -30,8 +32,8 @@ const getTransactions = async (req, res) => {
   }
 
   if (endDate) {
-    const parts = endDate.split('-');
-    endDate = new Date(parts[2], parts[1] - 1, parts[0], 23, 59, 59, 999);
+    endDate = getDateFromString(endDate);
+    endDate.setHours(23, 59, 59, 999);
 
     if (!whereConditions.spentOn) whereConditions.spentOn = {};
     whereConditions.spentOn.$lte = endDate.toISOString();
