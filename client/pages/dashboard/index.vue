@@ -23,13 +23,33 @@ export default {
       query.endDate = endDate;
     }
 
-    store.commit("dashboard", null);
+    // store.commit("dashboardTotal", null);
+    // store.commit("sourceDashboard", null);
+    // store.commit("categoryDashboard", null);
 
     store.commit("isLoading", true);
     console.log(query);
 
     await store
-      .dispatch("getDashboard", query)
+      .dispatch("getDashboardTotal", query)
+      .then(() => {
+        store.commit("isLoading", false);
+      })
+      .catch(() => {
+        store.commit("isLoading", false);
+      });
+
+    await store
+      .dispatch("getSourceDashboard", query)
+      .then(() => {
+        store.commit("isLoading", false);
+      })
+      .catch(() => {
+        store.commit("isLoading", false);
+      });
+
+    await store
+      .dispatch("getCategoryDashboard", query)
       .then(() => {
         store.commit("isLoading", false);
       })

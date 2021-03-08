@@ -23,7 +23,13 @@ export default {
   selectedImage(state, result) {
     state.selectedImage = result;
   },
-  dashboard(state, result) {
-    state.dashboard = result;
+  dashboardTotal(state, result) {
+    state.dashboardTotal = result;
+  },
+  sourceDashboard(state, result) {
+    state.sourceDashboard = result;
+  },
+  categoryDashboard(state, result) {
+    state.categoryDashboard = result;
   }
 };

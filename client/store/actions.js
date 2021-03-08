@@ -88,15 +88,37 @@ export default {
     const url = `${prefix}/transactions`;
     return request(axios, "get", url, queryParam);
   },
-  getDashboard({ commit }, { startDate, endDate }) {
+  getDashboardTotal({ commit }, { startDate, endDate }) {
     const queryString = generateQueryForDashboard({
       startDate,
       endDate
     });
 
-    const url = `${prefix}/dashboard?${queryString}`;
+    const url = `${prefix}/dashboard/total-per-date?${queryString}`;
     return request(axios, "get", url).then(response => {
-      commit("dashboard", response.data);
+      commit("dashboardTotal", response.data[0]);
+    });
+  },
+  getSourceDashboard({ commit }, { startDate, endDate }) {
+    const queryString = generateQueryForDashboard({
+      startDate,
+      endDate
+    });
+
+    const url = `${prefix}/dashboard/total-for-source?${queryString}`;
+    return request(axios, "get", url).then(response => {
+      commit("sourceDashboard", response.data[0]);
+    });
+  },
+  getCategoryDashboard({ commit }, { startDate, endDate }) {
+    const queryString = generateQueryForDashboard({
+      startDate,
+      endDate
+    });
+
+    const url = `${prefix}/dashboard/total-for-category?${queryString}`;
+    return request(axios, "get", url).then(response => {
+      commit("categoryDashboard", response.data[0]);
     });
   }
 };
