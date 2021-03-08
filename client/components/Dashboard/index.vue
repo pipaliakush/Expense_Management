@@ -12,7 +12,6 @@
         v-model="dateRange"
         @update="updateValues"
         :ranges="false"
-        :date-format="dateFormat"
       >
         <!-- <template v-slot:input="picker" style="min-width: 350px">
             {{ picker.startDate | formatDate }} *
@@ -20,6 +19,7 @@
           </template> -->
       </date-range-picker>
     </div>
+    {{ lineChartExpenseData }}-= {{ lineChartIncomeData }}
     <v-row class="mt-5 mb-5">
       <v-col cols="3">
         <v-card class="mx-auto" max-width="344" outlined>
@@ -27,7 +27,7 @@
             <v-list-item-content>
               <div class="overline mb-4">Income</div>
               <v-list-item-title class="headline mb-1"
-                >₹9,50,000</v-list-item-title
+                >₹{{ totalIncome.totalAmount }}</v-list-item-title
               >
             </v-list-item-content>
 
@@ -45,7 +45,7 @@
             <v-list-item-content>
               <div class="overline mb-4">Expenses</div>
               <v-list-item-title class="headline mb-1"
-                >₹50,000</v-list-item-title
+                >₹{{ totalExpense.totalAmount }}</v-list-item-title
               >
             </v-list-item-content>
 
@@ -94,7 +94,11 @@
     <v-divider></v-divider>
     <v-row class="mt-5 mb-5">
       <v-col cols="12">
-        <LineChart :height="140" />
+        <LineChart
+          :expenseDataSet="lineChartExpenseData"
+          :incomeDataSet="lineChartIncomeData"
+          :height="140"
+        />
       </v-col>
     </v-row>
     <v-divider></v-divider>
@@ -178,6 +182,20 @@ export default {
       }
     };
   },
+  computed: {
+    lineChartExpenseData() {
+      return this.$store.getters.dashboardLineChartExpenseData;
+    },
+    lineChartIncomeData() {
+      return this.$store.getters.dashboardLineChartIncomeData;
+    },
+    totalIncome() {
+      return this.$store.getters.totalIncome;
+    },
+    totalExpense() {
+      return this.$store.getters.totalExpense;
+    }
+  },
   mounted() {
     if (this.$route.query && this.$route.query.startDate) {
       let parts = this.$route.query.startDate.split("-");
@@ -212,12 +230,12 @@ export default {
       }
       return classes;
     },
-    getDashboard() {
-      this.$store
-        .dispatch("getDashboard", this.$route.query)
-        .then(() => {})
-        .catch(() => {});
-    },
+    // getDashboard() {
+    //   this.$store
+    //     .dispatch("getDashboard", this.$route.query)
+    //     .then(() => {})
+    //     .catch(() => {});
+    // },
     updateValues() {
       const startDate = this.convertISOToFormattedString(
         new Date(this.dateRange.startDate).toISOString()

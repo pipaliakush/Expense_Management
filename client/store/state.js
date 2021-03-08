@@ -7,6 +7,8 @@ export default function() {
     singleTransactionList: null,
     isLoading: false,
     selectedImage: null,
-    dashboard: null
+    dashboardTotal: null,
+    sourceDashboard: null,
+    categoryDashboard: null
   };
 }
