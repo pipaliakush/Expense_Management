@@ -95,6 +95,8 @@ const getIncomeExpenseTotalPerDate = async (req, res) => {
     },
   };
 
+  const sortBySpentOn = { $sort: { spentOn: 1 } };
+
   const result = await Transaction.aggregate()
     .match(getMatchCriteria(req.user.id, startDate, endDate))
     .facet({
@@ -102,11 +104,13 @@ const getIncomeExpenseTotalPerDate = async (req, res) => {
         { $match: { type: 'expense' } },
         getTotalAmountGroupedByDate,
         finalProjection,
+        sortBySpentOn,
       ],
       income: [
         { $match: { type: 'income' } },
         getTotalAmountGroupedByDate,
         finalProjection,
+        sortBySpentOn,
       ],
     })
     .exec();
