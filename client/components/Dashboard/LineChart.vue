@@ -6,60 +6,95 @@ export default {
   props: {
     expenseDataSet: {
       type: Array,
-      required: true
+      required: true,
     },
     incomeDataSet: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      chartData: {
-        datasets: [
-          {
-            label: "Income",
-            fill: false,
-            data: this.incomeDataSet,
-            borderColor: "#79ff4d",
-            borderWidth: 3
-          },
-          {
-            label: "Expense",
-            fill: false,
-            data: this.expenseDataSet,
-            borderColor: "#17C7DF",
-            borderWidth: 3
-          }
-        ]
-      },
       options: {
         responsive: true,
         title: {
           display: true,
           text: "Income and Expenses based on date",
           fontSize: 18,
-          fontColor: "#A1887F"
+          fontColor: "#A1887F",
         },
         scales: {
           xAxes: [
             {
-              type: "time"
-            }
-          ]
+              type: "time",
+            },
+          ],
         },
         legend: {
           position: "bottom",
           labels: {
             fontSize: 12,
-            usePointStyle: true
-          }
-        }
-      }
+            usePointStyle: true,
+          },
+        },
+      },
     };
   },
   mounted() {
-    this.renderChart(this.chartData, this.options);
-  }
+    const chartData = {
+      datasets: [
+        {
+          label: "Income",
+          fill: false,
+          data: this.incomeDataSet,
+          borderColor: "#79ff4d",
+          borderWidth: 3,
+        },
+        {
+          label: "Expense",
+          fill: false,
+          data: this.expenseDataSet,
+          borderColor: "#17C7DF",
+          borderWidth: 3,
+        },
+      ],
+    };
+    this.renderChart(chartData, this.options);
+  },
+  computed: {
+    changeData() {
+      const { incomeDataSet, expenseDataSet } = this;
+      return {
+        incomeDataSet,
+        expenseDataSet,
+      };
+    },
+  },
+  watch: {
+    changeData: {
+      handler: function ({ incomeDataSet, expenseDataSet }) {
+        const chartData = {
+          datasets: [
+            {
+              label: "Income",
+              fill: false,
+              data: incomeDataSet,
+              borderColor: "#79ff4d",
+              borderWidth: 3,
+            },
+            {
+              label: "Expense",
+              fill: false,
+              data: expenseDataSet,
+              borderColor: "#17C7DF",
+              borderWidth: 3,
+            },
+          ],
+        };
+        this.renderChart(chartData, this.options);
+      },
+      deep: true,
+    },
+  },
 };
 </script>

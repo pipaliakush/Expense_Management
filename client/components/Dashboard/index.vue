@@ -32,9 +32,7 @@
             </v-list-item-content>
 
             <v-list-item-avatar tile>
-              <v-icon size="40">
-                mdi-finance
-              </v-icon>
+              <v-icon size="40"> mdi-finance </v-icon>
             </v-list-item-avatar>
           </v-list-item>
         </v-card>
@@ -50,9 +48,7 @@
             </v-list-item-content>
 
             <v-list-item-avatar tile>
-              <v-icon size="40">
-                mdi-poll
-              </v-icon>
+              <v-icon size="40"> mdi-poll </v-icon>
             </v-list-item-avatar>
           </v-list-item>
         </v-card>
@@ -66,9 +62,7 @@
             </v-list-item-content>
 
             <v-list-item-avatar tile>
-              <v-icon size="40">
-                mdi-format-list-bulleted-type
-              </v-icon>
+              <v-icon size="40"> mdi-format-list-bulleted-type </v-icon>
             </v-list-item-avatar>
           </v-list-item>
         </v-card>
@@ -82,9 +76,7 @@
             </v-list-item-content>
 
             <v-list-item-avatar tile>
-              <v-icon size="40">
-                mdi-wallet-travel
-              </v-icon>
+              <v-icon size="40"> mdi-wallet-travel </v-icon>
             </v-list-item-avatar>
           </v-list-item>
         </v-card>
@@ -155,7 +147,7 @@ export default {
   components: {
     DateRangePicker,
     DoughnutChart,
-    LineChart
+    LineChart,
   },
   data() {
     return {
@@ -166,20 +158,20 @@ export default {
         "Investment",
         "Grocery",
         "Health",
-        "Food"
+        "Food",
       ],
       sourcelabels: ["Cash", "HDFC", "ICICI", "Paytm", "PhonePay"],
       categoryData: [300, 1400, 75, 1900, 400, 350, 300],
       sourceData: [3000, 14000, 7500, 1900, 400],
       dateRange: {
         startDate: moment().startOf("month"),
-        endDate: moment().endOf("month")
+        endDate: moment().endOf("month"),
       },
       localData: {
         direction: "ltr",
         format: "dd/mm/yyyy",
-        separator: " - "
-      }
+        separator: " - ",
+      },
     };
   },
   computed: {
@@ -194,7 +186,7 @@ export default {
     },
     totalExpense() {
       return this.$store.getters.totalExpense;
-    }
+    },
   },
   mounted() {
     if (this.$route.query && this.$route.query.startDate) {
@@ -208,7 +200,7 @@ export default {
     }
   },
   methods: {
-    convertISOToFormattedString: function(isoDate) {
+    convertISOToFormattedString: function (isoDate) {
       let date = new Date(isoDate);
       let year = date.getFullYear();
       let month = date.getMonth() + 1;
@@ -246,11 +238,11 @@ export default {
 
       const query = Object.assign({}, this.$route.query, {
         startDate,
-        endDate
+        endDate,
       });
       this.$router.push({ query });
-    }
-  }
+    },
+  },
 };
 </script>
 
