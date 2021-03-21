@@ -19,7 +19,6 @@
           </template> -->
       </date-range-picker>
     </div>
-    {{ lineChartExpenseData }}-= {{ lineChartIncomeData }}
     <v-row class="mt-5 mb-5">
       <v-col cols="3">
         <v-card class="mx-auto" max-width="344" outlined>
@@ -99,16 +98,16 @@
         <DoughnutChart
           :height="250"
           chartTitle="Income wise Categories"
-          :chartLabel="categorylabels"
-          :channelData="categoryData"
+          :chartLabel="labelCategoryOfIncome"
+          :channelData="dataCategoryOfIncome"
         />
       </v-col>
       <v-col cols="6">
         <DoughnutChart
           :height="250"
           chartTitle="Expense wise Categories"
-          :chartLabel="categorylabels"
-          :channelData="categoryData"
+          :chartLabel="labelCategoryOfExpense"
+          :channelData="dataCategoryOfExpense"
         />
       </v-col>
     </v-row>
@@ -118,16 +117,16 @@
         <DoughnutChart
           :height="250"
           chartTitle="Income wise Sources"
-          :chartLabel="sourcelabels"
-          :channelData="sourceData"
+          :chartLabel="labelSourceOfIncome"
+          :channelData="dataSourceOfIncome"
         />
       </v-col>
       <v-col cols="6">
         <DoughnutChart
           :height="250"
           chartTitle="Expense wise Sources"
-          :chartLabel="sourcelabels"
-          :channelData="sourceData"
+          :chartLabel="labelSourceOfExpense"
+          :channelData="dataSourceOfExpense"
         />
       </v-col>
     </v-row>
@@ -147,7 +146,7 @@ export default {
   components: {
     DateRangePicker,
     DoughnutChart,
-    LineChart,
+    LineChart
   },
   data() {
     return {
@@ -158,20 +157,18 @@ export default {
         "Investment",
         "Grocery",
         "Health",
-        "Food",
+        "Food"
       ],
-      sourcelabels: ["Cash", "HDFC", "ICICI", "Paytm", "PhonePay"],
       categoryData: [300, 1400, 75, 1900, 400, 350, 300],
-      sourceData: [3000, 14000, 7500, 1900, 400],
       dateRange: {
         startDate: moment().startOf("month"),
-        endDate: moment().endOf("month"),
+        endDate: moment().endOf("month")
       },
       localData: {
         direction: "ltr",
         format: "dd/mm/yyyy",
-        separator: " - ",
-      },
+        separator: " - "
+      }
     };
   },
   computed: {
@@ -187,6 +184,30 @@ export default {
     totalExpense() {
       return this.$store.getters.totalExpense;
     },
+    labelSourceOfExpense() {
+      return this.$store.getters.labelSourceOfExpense;
+    },
+    dataSourceOfExpense() {
+      return this.$store.getters.dataSourceOfExpense;
+    },
+    labelSourceOfIncome() {
+      return this.$store.getters.labelSourceOfIncome;
+    },
+    dataSourceOfIncome() {
+      return this.$store.getters.dataSourceOfIncome;
+    },
+    labelCategoryOfExpense() {
+      return this.$store.getters.labelCategoryOfExpense;
+    },
+    dataCategoryOfExpense() {
+      return this.$store.getters.dataCategoryOfExpense;
+    },
+    labelCategoryOfIncome() {
+      return this.$store.getters.labelCategoryOfIncome;
+    },
+    dataCategoryOfIncome() {
+      return this.$store.getters.dataCategoryOfIncome;
+    }
   },
   mounted() {
     if (this.$route.query && this.$route.query.startDate) {
@@ -200,7 +221,7 @@ export default {
     }
   },
   methods: {
-    convertISOToFormattedString: function (isoDate) {
+    convertISOToFormattedString: function(isoDate) {
       let date = new Date(isoDate);
       let year = date.getFullYear();
       let month = date.getMonth() + 1;
@@ -238,11 +259,11 @@ export default {
 
       const query = Object.assign({}, this.$route.query, {
         startDate,
-        endDate,
+        endDate
       });
       this.$router.push({ query });
-    },
-  },
+    }
+  }
 };
 </script>
 
