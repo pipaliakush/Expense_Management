@@ -48,5 +48,85 @@ export default {
     } else {
       return { totalAmount: 0 };
     }
+  },
+  labelSourceOfExpense: state => {
+    if (state.sourceDashboard.expense.length) {
+      const val = state.sourceDashboard.expense.map(e => {
+        return e.name;
+      });
+      return val;
+    } else {
+      return [];
+    }
+  },
+  dataSourceOfExpense: state => {
+    if (state.sourceDashboard.expense.length) {
+      const val = state.sourceDashboard.expense.map(e => {
+        return e.totalAmount;
+      });
+      return val;
+    } else {
+      return [];
+    }
+  },
+  labelSourceOfIncome: state => {
+    if (state.sourceDashboard.income.length) {
+      const val = state.sourceDashboard.income.map(e => {
+        return e.name;
+      });
+      return val;
+    } else {
+      return [];
+    }
+  },
+  dataSourceOfIncome: state => {
+    if (state.sourceDashboard.income.length) {
+      const val = state.sourceDashboard.income.map(e => {
+        return e.totalAmount;
+      });
+      return val;
+    } else {
+      return [];
+    }
+  },
+  labelCategoryOfIncome: state => {
+    if (state.categoryDashboard.income.length) {
+      const val = state.categoryDashboard.income.map(e => {
+        return e.name;
+      });
+      return val;
+    } else {
+      return [];
+    }
+  },
+  dataCategoryOfIncome: state => {
+    if (state.categoryDashboard.income.length) {
+      const val = state.categoryDashboard.income.map(e => {
+        return e.totalAmount;
+      });
+      return val;
+    } else {
+      return [];
+    }
+  },
+  labelCategoryOfExpense: state => {
+    if (state.categoryDashboard.expense.length) {
+      const val = state.categoryDashboard.expense.map(e => {
+        return e.name;
+      });
+      return val;
+    } else {
+      return [];
+    }
+  },
+  dataCategoryOfExpense: state => {
+    if (state.categoryDashboard.expense.length) {
+      const val = state.categoryDashboard.expense.map(e => {
+        return e.totalAmount;
+      });
+      return val;
+    } else {
+      return [];
+    }
   }
 };
