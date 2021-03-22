@@ -78,4 +78,18 @@ app.use(function (err, req, res, next) {
   res.send({ error: err });
 });
 
+// if (process.env.NODE_ENV === 'production') {
+// Static folder
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+//   // Handle SPA
+app.get(/.*/, (req, res) =>
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'))
+);
+// }
+
+const port = process.env.PORT || 3001;
+
+app.listen(port, () => console.log(`Server started on port ${port}`));
+
 module.exports = app;
