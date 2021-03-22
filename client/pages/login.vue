@@ -80,13 +80,13 @@ export default {
   },
   head() {
     return {
-      title: "Login - Expense Management"
+      title: "Login - Expense Management",
     };
   },
   methods: {
     loginWithGoogle() {
-      window.location.replace("http://localhost:3001/api/v1/auth/google");
-    }
-  }
+      window.location.replace(process.env.AUTH_URL);
+    },
+  },
 };
 </script>

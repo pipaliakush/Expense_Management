@@ -3,13 +3,10 @@ import colors from "vuetify/es5/util/colors";
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
-  axios: {
-    proxy: true, // Can be also an object with default options
-    prefix: "/api/"
-  },
-
-  proxy: {
-    "/api/": { target: "http://localhost:3001", pathRewrite: { "^/api/": "" } }
+  env: {
+    AUTH_URL:
+      process.env.AUTH_URL || "http://localhost:3001/api/v1/auth/google",
+    API_URL: process.env.API_URL || "http://localhost:3001"
   },
 
   // Target: https://go.nuxtjs.dev/config-target
