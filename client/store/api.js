@@ -1,7 +1,7 @@
 export function request(axios, type, url, data) {
   let request;
   axios.default.withCredentials = true;
-  const newUrl = "http://localhost:3001" + url;
+  const newUrl = process.env.API_URL + url;
   switch (type) {
     case "get":
       request = axios.get(newUrl, {

@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "npx eslint \"**/*.js\"",
     "lint:fix": "npm run lint -- --fix",
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./app.js"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

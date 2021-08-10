@@ -1,6 +1,6 @@
 export default {
   dashboardLineChartExpenseData: state => {
-    if (state.dashboardTotal.expense.length) {
+    if (state.dashboardTotal.expense && state.dashboardTotal.expense.length) {
       const newArray = state.dashboardTotal.expense.map(item => {
         return { t: item.spentOn, y: item.totalAmount };
       });
@@ -10,7 +10,7 @@ export default {
     }
   },
   dashboardLineChartIncomeData: state => {
-    if (state.dashboardTotal.income.length) {
+    if (state.dashboardTotal.expense && state.dashboardTotal.income.length) {
       const newArray = state.dashboardTotal.income.map(item => {
         return { t: item.spentOn, y: item.totalAmount };
       });
@@ -20,7 +20,7 @@ export default {
     }
   },
   totalIncome: state => {
-    if (state.dashboardTotal.income.length) {
+    if (state.dashboardTotal.income && state.dashboardTotal.income.length) {
       const val = state.dashboardTotal.income.reduce(function(
         previousValue,
         currentValue
@@ -35,7 +35,7 @@ export default {
     }
   },
   totalExpense: state => {
-    if (state.dashboardTotal.expense.length) {
+    if (state.dashboardTotal.expense && state.dashboardTotal.expense.length) {
       const val = state.dashboardTotal.expense.reduce(function(
         previousValue,
         currentValue
