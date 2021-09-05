@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 
 const Transaction = require('../models/transaction');
+const Source = require('../models/source');
+const Category = require('../models/category');
 
 const { validateDateRange } = require('./validators/dateRange.validator');
 const { getDateFromString } = require('./queryDataParsers');
@@ -72,7 +74,82 @@ const getFacetCriteriaForCollectionByType = (
   ];
 };
 
-// Controllers start
+const getDashboardInfo = async (req, res) => {
+  const { error, startDate, endDate } = getDateRange(req.query);
+  if (error) {
+    return res.status(400).send(error.details[0].message);
+  }
+
+  const userId = req.user.id;
+
+  const getTotalAmountGroupedByDate = {
+    $group: {
+      _id: { $dateToString: { format: '%Y-%m-%d', date: '$spentOn' } },
+      totalAmount: { $sum: '$amount' },
+    },
+  };
+
+  const finalProjection = {
+    $project: {
+      _id: 0,
+      spentOn: '$_id',
+      totalAmount: 1,
+    },
+  };
+
+  const sortBySpentOn = { $sort: { spentOn: 1 } };
+
+  const [result = {}] = await Transaction.aggregate()
+    .match(getMatchCriteria(userId, startDate, endDate))
+    .facet({
+      expense: [
+        { $match: { type: 'expense' } },
+        getTotalAmountGroupedByDate,
+        finalProjection,
+        sortBySpentOn,
+      ],
+      income: [
+        { $match: { type: 'income' } },
+        getTotalAmountGroupedByDate,
+        finalProjection,
+        sortBySpentOn,
+      ],
+      sourceExpanse: getFacetCriteriaForCollectionByType(
+        'expense',
+        'sources',
+        'sourceId'
+      ),
+      sourceIncome: getFacetCriteriaForCollectionByType(
+        'income',
+        'sources',
+        'sourceId'
+      ),
+      categoryExpense: getFacetCriteriaForCollectionByType(
+        'expense',
+        'categories',
+        'categoryId'
+      ),
+      categoryIncome: getFacetCriteriaForCollectionByType(
+        'income',
+        'categories',
+        'categoryId'
+      ),
+    })
+    .exec();
+
+  const sourcesCount = await Source.find({
+    $or: [{ userId: userId }, { isDefault: true, userId: null }],
+  }).count();
+
+  const categoryCount = await Category.find({
+    $or: [{ userId: userId }, { isDefault: true, userId: null }],
+  }).count();
+
+  result.sourcesCount = sourcesCount;
+  result.categoryCount = categoryCount;
+
+  return res.send(result);
+};
 
 const getIncomeExpenseTotalPerDate = async (req, res) => {
   const { error, startDate, endDate } = getDateRange(req.query);
@@ -172,4 +249,5 @@ module.exports = {
   getIncomeExpenseTotalPerDate,
   getIncomeExpenseTotalForSourcePerDate,
   getIncomeExpenseTotalForCategoryPerDate,
+  getDashboardInfo,
 };
