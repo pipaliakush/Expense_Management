@@ -71,7 +71,13 @@ export default {
             .then(() => {})
             .catch(() => {});
         })
-        .catch(() => {});
+        .catch(error => {
+          this.$toasted.error(error.response.data.message, {
+            theme: "bubble",
+            position: "top-right",
+            duration: 3000
+          });
+        });
     }
   }
 };

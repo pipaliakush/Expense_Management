@@ -192,6 +192,52 @@ export default {
       this.$store.commit("selectedImage", null);
     },
     save() {
+      if (
+        this.form.sourceId == null ||
+        this.form.sourceId == "" ||
+        this.form.sourceId == undefined
+      ) {
+        this.$toasted.error("Source type is required", {
+          theme: "bubble",
+          position: "top-right",
+          duration: 3000
+        });
+        return false;
+      } else if (
+        this.form.title == null ||
+        this.form.title == "" ||
+        this.form.title == undefined
+      ) {
+        this.$toasted.error("Title is required", {
+          theme: "bubble",
+          position: "top-right",
+          duration: 3000
+        });
+        return false;
+      } else if (
+        this.form.amount == null ||
+        this.form.amount == "" ||
+        this.form.amount == undefined
+      ) {
+        this.$toasted.error("Amount is required", {
+          theme: "bubble",
+          position: "top-right",
+          duration: 3000
+        });
+        return false;
+      } else if (
+        this.form.categoryId == null ||
+        this.form.categoryId == "" ||
+        this.form.categoryId == undefined
+      ) {
+        this.$toasted.error("Category type is required", {
+          theme: "bubble",
+          position: "top-right",
+          duration: 3000
+        });
+        return false;
+      }
+
       this.$store
         .dispatch("addTransaction", this.form)
         .then(() => {
