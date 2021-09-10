@@ -26,7 +26,9 @@
             <v-list-item-content>
               <div class="overline mb-4">Income</div>
               <v-list-item-title class="headline mb-1"
-                >₹{{ totalIncome.totalAmount }}</v-list-item-title
+                >₹{{
+                  totalIncome.totalAmount | CurrencyConverter
+                }}</v-list-item-title
               >
             </v-list-item-content>
 
@@ -42,7 +44,9 @@
             <v-list-item-content>
               <div class="overline mb-4">Expenses</div>
               <v-list-item-title class="headline mb-1"
-                >₹{{ totalExpense.totalAmount }}</v-list-item-title
+                >₹{{
+                  totalExpense.totalAmount | CurrencyConverter
+                }}</v-list-item-title
               >
             </v-list-item-content>
 
@@ -57,7 +61,9 @@
           <v-list-item three-line>
             <v-list-item-content>
               <div class="overline mb-4">Total Categories</div>
-              <v-list-item-title class="headline mb-1">13</v-list-item-title>
+              <v-list-item-title class="headline mb-1">{{
+                totalCategories
+              }}</v-list-item-title>
             </v-list-item-content>
 
             <v-list-item-avatar tile>
@@ -71,7 +77,9 @@
           <v-list-item three-line>
             <v-list-item-content>
               <div class="overline mb-4">Number of Sources</div>
-              <v-list-item-title class="headline mb-1">5</v-list-item-title>
+              <v-list-item-title class="headline mb-1">{{
+                totalSources
+              }}</v-list-item-title>
             </v-list-item-content>
 
             <v-list-item-avatar tile>
@@ -171,6 +179,11 @@ export default {
       }
     };
   },
+  filters: {
+    CurrencyConverter(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+  },
   computed: {
     lineChartExpenseData() {
       return this.$store.getters.dashboardLineChartExpenseData;
@@ -207,6 +220,12 @@ export default {
     },
     dataCategoryOfIncome() {
       return this.$store.getters.dataCategoryOfIncome;
+    },
+    totalCategories() {
+      return this.$store.state.dashboard.categoryCount;
+    },
+    totalSources() {
+      return this.$store.state.dashboard.sourcesCount;
     }
   },
   mounted() {
