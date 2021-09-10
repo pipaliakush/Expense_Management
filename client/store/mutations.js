@@ -31,5 +31,8 @@ export default {
   },
   categoryDashboard(state, result) {
     state.categoryDashboard = result;
+  },
+  getDashboardData(state, result) {
+    state.dashboard = result;
   }
 };
