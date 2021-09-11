@@ -266,11 +266,12 @@ export default {
 
 .categories-list {
   text-align: center;
+  cursor: pointer;
 }
 
 .selected-category {
-  background: cyan;
+  background: rgb(214, 212, 212);
   color: black;
-  border-radius: 10%;
+  border-radius: 5%;
 }
 </style>
