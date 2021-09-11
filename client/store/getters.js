@@ -1,7 +1,7 @@
 export default {
   dashboardLineChartExpenseData: state => {
-    if (state.dashboardTotal.expense && state.dashboardTotal.expense.length) {
-      const newArray = state.dashboardTotal.expense.map(item => {
+    if (state.dashboard.expense && state.dashboard.expense.length) {
+      const newArray = state.dashboard.expense.map(item => {
         return { t: item.spentOn, y: item.totalAmount };
       });
       return newArray;
@@ -10,8 +10,8 @@ export default {
     }
   },
   dashboardLineChartIncomeData: state => {
-    if (state.dashboardTotal.expense && state.dashboardTotal.income.length) {
-      const newArray = state.dashboardTotal.income.map(item => {
+    if (state.dashboard.expense && state.dashboard.income.length) {
+      const newArray = state.dashboard.income.map(item => {
         return { t: item.spentOn, y: item.totalAmount };
       });
       return newArray;
@@ -20,8 +20,8 @@ export default {
     }
   },
   totalIncome: state => {
-    if (state.dashboardTotal.income && state.dashboardTotal.income.length) {
-      const val = state.dashboardTotal.income.reduce(function(
+    if (state.dashboard.income && state.dashboard.income.length) {
+      const val = state.dashboard.income.reduce(function(
         previousValue,
         currentValue
       ) {
@@ -35,8 +35,8 @@ export default {
     }
   },
   totalExpense: state => {
-    if (state.dashboardTotal.expense && state.dashboardTotal.expense.length) {
-      const val = state.dashboardTotal.expense.reduce(function(
+    if (state.dashboard.expense && state.dashboard.expense.length) {
+      const val = state.dashboard.expense.reduce(function(
         previousValue,
         currentValue
       ) {
@@ -50,8 +50,8 @@ export default {
     }
   },
   labelSourceOfExpense: state => {
-    if (state.sourceDashboard.expense.length) {
-      const val = state.sourceDashboard.expense.map(e => {
+    if (state.dashboard.sourceExpanse.length) {
+      const val = state.dashboard.sourceExpanse.map(e => {
         return e.name;
       });
       return val;
@@ -60,8 +60,8 @@ export default {
     }
   },
   dataSourceOfExpense: state => {
-    if (state.sourceDashboard.expense.length) {
-      const val = state.sourceDashboard.expense.map(e => {
+    if (state.dashboard.sourceExpanse.length) {
+      const val = state.dashboard.sourceExpanse.map(e => {
         return e.totalAmount;
       });
       return val;
@@ -70,8 +70,8 @@ export default {
     }
   },
   labelSourceOfIncome: state => {
-    if (state.sourceDashboard.income.length) {
-      const val = state.sourceDashboard.income.map(e => {
+    if (state.dashboard.sourceIncome.length) {
+      const val = state.dashboard.sourceIncome.map(e => {
         return e.name;
       });
       return val;
@@ -80,8 +80,8 @@ export default {
     }
   },
   dataSourceOfIncome: state => {
-    if (state.sourceDashboard.income.length) {
-      const val = state.sourceDashboard.income.map(e => {
+    if (state.dashboard.sourceIncome.length) {
+      const val = state.dashboard.sourceIncome.map(e => {
         return e.totalAmount;
       });
       return val;
@@ -90,8 +90,8 @@ export default {
     }
   },
   labelCategoryOfIncome: state => {
-    if (state.categoryDashboard.income.length) {
-      const val = state.categoryDashboard.income.map(e => {
+    if (state.dashboard.categoryIncome.length) {
+      const val = state.dashboard.categoryIncome.map(e => {
         return e.name;
       });
       return val;
@@ -100,8 +100,8 @@ export default {
     }
   },
   dataCategoryOfIncome: state => {
-    if (state.categoryDashboard.income.length) {
-      const val = state.categoryDashboard.income.map(e => {
+    if (state.dashboard.categoryIncome.length) {
+      const val = state.dashboard.categoryIncome.map(e => {
         return e.totalAmount;
       });
       return val;
@@ -110,8 +110,8 @@ export default {
     }
   },
   labelCategoryOfExpense: state => {
-    if (state.categoryDashboard.expense.length) {
-      const val = state.categoryDashboard.expense.map(e => {
+    if (state.dashboard.categoryExpense.length) {
+      const val = state.dashboard.categoryExpense.map(e => {
         return e.name;
       });
       return val;
@@ -120,8 +120,8 @@ export default {
     }
   },
   dataCategoryOfExpense: state => {
-    if (state.categoryDashboard.expense.length) {
-      const val = state.categoryDashboard.expense.map(e => {
+    if (state.dashboard.categoryExpense.length) {
+      const val = state.dashboard.categoryExpense.map(e => {
         return e.totalAmount;
       });
       return val;

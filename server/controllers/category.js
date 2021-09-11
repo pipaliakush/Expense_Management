@@ -1,6 +1,8 @@
 const Category = require('../models/category');
 const validateObjectId = require('./validators/objectId.validator');
 const validateCategory = require('./validators/category.validator');
+const Transaction = require('../models/transaction');
+const { ObjectId } = require('mongodb');
 
 const getCategories = async (req, res) => {
   const categories = await Category.find({
@@ -30,9 +32,17 @@ const createCategory = async (req, res) => {
     return res.status(400).send(error.details[0].message);
   }
 
+  const existedCategory = await Category.findOne({
+    $and: [{ userId: req.user.id }, { name: categoryData.name.trim() } ],
+  });
+
+  if (existedCategory) {
+    return res.status(403).send({message: 'This category is already exist!'});
+  }
+
   const category = await Category.create({
-    name: categoryData.name,
-    icon: categoryData.icon,
+    name: categoryData.name.trim(),
+    icon: categoryData.icon.trim(),
     userId: req.user.id,
   });
 
@@ -49,8 +59,8 @@ const updateCategory = async (req, res) => {
   const category = await Category.findByIdAndUpdate(
     req.params.id,
     {
-      name: categoryData.name,
-      icon: categoryData.icon,
+      name: categoryData.name.trim(),
+      icon: categoryData.icon.trim(),
     },
     { new: true }
   );
@@ -67,6 +77,13 @@ const deleteCategory = async (req, res) => {
   if (error) {
     return res.status(400).send(error.details[0].message);
   }
+
+  const transactionExists = await Transaction.find({userId: ObjectId(req.user.id), categoryId: ObjectId(req.params.id)})
+
+  if (transactionExists && transactionExists.length) {
+    return res.status(400).send({message: "Some transactions are already associated with this category!"});
+  }
+
 
   const category = await Category.findByIdAndDelete(req.params.id);
   if (!category) {

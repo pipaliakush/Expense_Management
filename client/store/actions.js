@@ -88,6 +88,17 @@ export default {
     const url = `${prefix}/transactions`;
     return request(axios, "get", url, queryParam);
   },
+  getDashboard({ commit }, { startDate, endDate }) {
+    const queryString = generateQueryForDashboard({
+      startDate,
+      endDate
+    });
+
+    const url = `${prefix}/dashboard?${queryString}`;
+    return request(axios, "get", url).then(response => {
+      commit("getDashboardData", response.data);
+    });
+  },
   getDashboardTotal({ commit }, { startDate, endDate }) {
     const queryString = generateQueryForDashboard({
       startDate,

@@ -9,6 +9,7 @@ export default function() {
     selectedImage: null,
     dashboardTotal: null,
     sourceDashboard: null,
-    categoryDashboard: null
+    categoryDashboard: null,
+    dashboard: {}
   };
 }
